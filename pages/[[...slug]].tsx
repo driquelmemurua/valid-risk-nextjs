@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { apiService } from 'services/api';
 import { Header } from 'components/Header';
+import { Main } from 'components/Main';
 import { arrayToSlug } from 'utils/arrayToSlug';
 
 export async function getStaticPaths() {
@@ -38,7 +39,9 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header { ...headerProps } />
-      <div style={{height: '150vh'}}>Content</div>
+      <Main>
+        Content
+      </Main>
     </>
   )
 }

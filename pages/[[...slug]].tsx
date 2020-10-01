@@ -38,7 +38,7 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header { ...headerProps } />
-      <div style={{height: '150vh'}}></div>
+      <div style={{height: '150vh'}}>Content</div>
     </>
   )
 }

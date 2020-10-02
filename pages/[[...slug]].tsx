@@ -15,7 +15,6 @@ export const getStaticProps:GetStaticProps = async ({ params }) => {
   const { headerProps, footerProps, titles } = await apiService.theme();
   // @ts-ignore
   const slug = arrayToSlug(params.slug);
-  console.log(footerProps)
   return {
     props:{
       headerProps: {

@@ -23,10 +23,11 @@ type HeaderProps = {
 }
 export function Header({ navigation, slug, logo }: HeaderProps) {
 
-  const navItems = navigation.map((item) => (
-    <Link 
-      href={ item.slug }
-      key={ item.slug }
+  const navItems = navigation.map((item, index) => (
+    <Link
+      href={ '/[[...slug]]' }
+      as={ item.slug }
+      key={ index }
     >
       <a>
         <NavItem
@@ -104,7 +105,8 @@ function Logo({ title, image: { src, alt }}: LogoProps) {
   
   return (
     <Link
-      href='/'
+      href={ '/[[...slug]]' }
+      as='/'
     >
       <a>
         <LogoContainer>

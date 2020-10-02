@@ -20,8 +20,10 @@ export function Footer({
   phone
 }) {
 
-  const addressNodes = addresses.map(address => (
-    <dd>
+  const addressNodes = addresses.map((address, index) => (
+    <dd 
+      key={ index }
+    >
       <Item
         href={ `https://maps.google.com/?q=${ address }` }
       >

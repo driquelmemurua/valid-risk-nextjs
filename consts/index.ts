@@ -18,3 +18,5 @@ export const COLORS = {
     light: '#FFAD17'
   },
 }
+
+export const SUPPORT_LOGIN = (process.env.API_URI || 'http://localhost:1337') + '/admin';

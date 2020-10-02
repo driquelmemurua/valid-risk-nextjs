@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { SUPPORT_LOGIN } from 'consts';
 
 const fetch = Axios.create({
   baseURL: process.env.API_URI || 'http://localhost:1337'
@@ -23,6 +24,13 @@ type ThemeSettingsApiResult = {
       alternativeText: string,
       url: string
     }
+  },
+  ContactInfo: {
+    Email: string,
+    Phone: string,
+    Locations: Array<{
+      Address: string
+    }>
   }
 }
 
@@ -42,7 +50,7 @@ export const apiService = {
     .reduce((prev, item) => [...prev, { params: item.params }, ...item.subItems], []);
   },
   theme: async () => {
-    const { data: { Logo, Navigation }} = await fetch.get<ThemeSettingsApiResult>('/theme-settings');
+    const { data: { Logo, Navigation, ContactInfo }} = await fetch.get<ThemeSettingsApiResult>('/theme-settings');
     return {
       headerProps: {
         navigation: Navigation
@@ -61,6 +69,13 @@ export const apiService = {
             alt: Logo.Image.alternativeText
           }
         }
+      },
+      footerProps: {
+        supportLogin: SUPPORT_LOGIN,
+        demoRequest: 'https://www.google.com',
+        addresses: ContactInfo.Locations.map(location => location.Address),
+        mail: ContactInfo.Email,
+        phone: ContactInfo.Phone
       },
       titles: Navigation
       .reduce((prev, item) => [

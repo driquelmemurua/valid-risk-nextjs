@@ -1,8 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { apiService } from 'services/api';
-import { Header } from 'components/Header';
-import { Main } from 'components/Main';
+import { Header, Main, Footer } from 'components';
 import { arrayToSlug } from 'utils/arrayToSlug';
 
 export async function getStaticPaths() {
@@ -13,23 +12,25 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps:GetStaticProps = async ({ params }) => {
-  const { headerProps, titles } = await apiService.theme();
+  const { headerProps, footerProps, titles } = await apiService.theme();
   // @ts-ignore
   const slug = arrayToSlug(params.slug);
-  
+  console.log(footerProps)
   return {
     props:{
       headerProps: {
         slug,
         ...headerProps
       },
-      title: titles[slug]
+      title: titles[slug],
+      footerProps
     }
   }
 }
 
 export default function Home({
   headerProps,
+  footerProps,
   title
 }) {
   return (
@@ -38,10 +39,15 @@ export default function Home({
         <title>{ title }</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header { ...headerProps } />
+      <Header 
+        { ...headerProps } 
+      />
       <Main>
         Content
       </Main>
+      <Footer 
+        { ...footerProps }
+      />
     </>
   )
 }

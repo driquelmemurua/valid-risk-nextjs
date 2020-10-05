@@ -20,3 +20,7 @@ export const COLORS = {
 }
 
 export const SUPPORT_LOGIN = (process.env.API_URI || 'http://localhost:1337') + '/admin';
+
+export const PAGES_IDS = {
+  '/': 1
+}

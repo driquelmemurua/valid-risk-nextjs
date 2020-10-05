@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Preview(props) {
+export function Preview(props) {
   return (
     <Pre>
       { JSON.stringify(props, null, 2) }
@@ -12,5 +12,3 @@ function Preview(props) {
 const Pre = styled.pre `
   white-space: pre-wrap;
 `;
-
-export default Preview;

@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { SUPPORT_LOGIN } from 'consts';
-import { ApiComponents, CarouselComponent } from 'types/components';
+import { ApiComponents, CardListComponent, CarouselComponent, ContactFormComponent, HeroImageComponent, HeroWithDescriptionComponent, ImageListComponent, QuoteBlockComponent } from 'types/components';
 
 const fetch = Axios.create({
   baseURL: process.env.API_URI || 'http://localhost:1337'
@@ -36,27 +36,98 @@ type ThemeSettingsApiResult = {
   }
 }
 type Carousel = {
-  __component: 'carousel.carousel',
-  Margin: string,
-  Views: Array<{
-    Heading: string,
+  __component: 'carousel.carousel'
+  id: number
+  Margin: string
+  Views: {
+    id: number
+    Heading: string
     Button: {
-      Text: string,
-      Color: 'Purple' | 'Yellow' | 'Green',
+      Text: string
+      Color: 'Purple' | 'Yellow' | 'Green'
       Page: {
         id: number
       }
-    },
+    }
     Background: {
-      url: string,
+      url: string
       alternativeText: string
     }
-  }>
+  }[]
+}
+type HeroImage = {
+  __component: 'hero-image.hero-image'
+  id: number
+  Content: string
+  Margin: string
+  Image: {
+    url: string,
+    alternativeText: string
+  }
+}
+type CardList = {
+  __component: 'cards.card-list'
+  id: number
+  Margin: string
+  Cards: {
+    id: number
+    Title: string
+    Icon: string
+    Content: string
+    Color: 'White' | 'Purple'
+  }[]
+}
+type QuoteBlock = {
+  __component: 'quote-block.quote-block'
+  id: number
+  Text: string
+  Color: 'Purple' | 'Green' | 'Yellow'
+  QuoteLink: string
+  Margin: string
+}
+type ImageList = {
+  __component: 'image-list.image-list'
+  id: number
+  Title: string
+  TitleDrop?: string 
+  Position: 'Right' | 'Left'
+  Color: 'Purple' | 'Green' | 'Yellow'
+  Margin: string
+  Image: {
+    url: string
+    alternativeText: string
+  }
+  Item: {
+    id: number
+    Text: string
+  }[]
+}
+type HeroWithDescription = {
+  __component: 'hero-image.hero-with-description'
+  id: number
+  Heading: string
+  Description: string
+  Color: 'Purple' | 'Yellow' | 'Green'
+  Image: {
+    url: string
+    alternativeText: string
+  }
+}
+type ContactForm = {
+  __component: 'form.contact-form'
+  id: number
+  Action: string
 }
 type PagesApiResult = {
-  Title: string,
+  Title: string
   Content: Array<
-    Carousel
+    Carousel |
+    HeroImage |
+    CardList |
+    QuoteBlock |
+    ImageList |
+    HeroWithDescription |
+    ContactForm
   >
 }
 
@@ -123,10 +194,12 @@ export const apiService = {
       switch (component.__component) {
         case 'carousel.carousel':
           const carouselComponent: CarouselComponent = {
+            key: component.__component + component.id.toString(),
             type: 'carousel',
             props: {
               margin: component.Margin,
               views: component.Views.map(view => ({
+                key: view.id.toString(),
                 background: {
                   src: view.Background.url,
                   alt: view.Background.alternativeText
@@ -141,6 +214,92 @@ export const apiService = {
             }
           };
           return carouselComponent;
+        case 'cards.card-list':
+          const cardListComponent: CardListComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'cardList',
+            props: {
+              cards: component.Cards.map(card => ({
+                key: card.id.toString(),
+                title: card.Title,
+                icon: card.Icon,
+                content: card.Content,
+                color: card.Color
+              })),
+              margin: component.Margin
+            }
+          };
+          return cardListComponent;
+        case 'form.contact-form':
+          const contactFormComponent: ContactFormComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'contactForm',
+            props: {
+              action: component.Action
+            }
+          };
+          return contactFormComponent;
+        case 'hero-image.hero-image':
+          const heroImageComponent: HeroImageComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'heroImage',
+            props: {
+              content: component.Content,
+              image: {
+                src: component.Image.url,
+                alt: component.Image.alternativeText
+              },
+              margin: component.Margin
+            }
+          };
+          return heroImageComponent;
+        case 'hero-image.hero-with-description':
+          const HeroWithDescription: HeroWithDescriptionComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'heroWithDescription',
+            props: {
+              heading: component.Heading,
+              description: component.Description,
+              color: component.Color,
+              image: {
+                src: component.Image.url,
+                alt: component.Image.alternativeText
+              }
+            }
+          };
+          return HeroWithDescription;
+        case 'image-list.image-list':
+          const imageList: ImageListComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'imageList',
+            props: {
+              title: component.Title,
+              position: component.Position,
+              color: component.Color,
+              margin: component.Margin,
+              image: {
+                src: component.Image.url,
+                alt: component.Image.alternativeText
+              },
+              items: component.Item.map(item => ({
+                key: item.id.toString(),
+                text: item.Text
+              }))
+            }
+          };
+          return imageList;
+        case 'quote-block.quote-block':
+          const quoteBlock: QuoteBlockComponent = {
+            key: component.__component + component.id.toString(),
+            type: 'quoteBlock',
+            props: {
+              text: component.Text,
+              color: component.Color,
+              url: component.QuoteLink,
+              margin: component.Margin
+            }
+          };
+          return quoteBlock;
         default:
           return null;
       }

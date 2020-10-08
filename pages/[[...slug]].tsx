@@ -2,7 +2,6 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { apiService } from 'services/api';
 import { Header, Main, Footer } from 'components';
-import { Preview } from 'components/Preview';
 import { arrayToSlug } from 'utils/arrayToSlug';
 import { useComponentParser } from 'hooks/useComponentParser';
 
@@ -41,7 +40,7 @@ export const getStaticProps:GetStaticProps = async ({ params }) => {
   }
 }
 
-export default function Home({
+export default function SlugComposer({
   headerProps,
   footerProps,
   title,

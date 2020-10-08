@@ -24,19 +24,19 @@ type HeaderProps = {
 export function Header({ navigation, slug, logo }: HeaderProps) {
 
   const navItems = navigation.map((item, index) => (
-    <Link
-      href={ '/[[...slug]]' }
-      as={ item.slug }
+    <NavItem
+      selected={ item.slug === slug }
       key={ index }
     >
-      <a>
-        <NavItem
-          selected={ item.slug === slug }
-        >
-          { item.title }
-        </NavItem>
-      </a>
-    </Link>
+      <Link
+        href={ '/[[...slug]]' }
+        as={ item.slug }
+      >
+        <a>
+            { item.title }
+        </a>
+      </Link>
+    </NavItem>
   ));
 
   return (
@@ -91,7 +91,7 @@ type NavItemProps = {
 }
 const NavItem = styled.li<NavItemProps> `
   list-style-type: none;
-  color: ${props => props.selected ? COLORS.secondComplementary.default : COLORS.black };
+  color: ${props => props.selected ? COLORS.primary.dark : COLORS.black };
 `;
 
 type LogoProps = {

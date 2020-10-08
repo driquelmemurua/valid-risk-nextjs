@@ -1,3 +1,10 @@
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { Main } from './Main';
+export { CardList } from './CardList';
+export { Carousel } from './Carousel';
+export { ContactForm } from './ContactForm';
+export { HeroImage } from './HeroImage';
+export { HeroWithDescription } from './HeroWithDescription';
+export { ImageList } from './ImageList';
+export { QuoteBlock } from './QuoteBlock';

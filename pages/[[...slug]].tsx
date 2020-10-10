@@ -1,67 +1,63 @@
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { apiService } from 'services/api';
-import { Header, Main, Footer } from 'components';
-import { arrayToSlug } from 'utils/arrayToSlug';
 import { useComponentParser } from 'hooks/useComponentParser';
+import { GetStaticProps } from 'next';
+import { PageBuilder } from 'services/PageBuilder';
+import { PathsBuilder } from 'services/PathsBuilder';
+import { Page } from 'types/Page';
+import { Main, Header, Footer } from 'components';
+import { HeaderProps } from 'types/components/Header';
+import { FooterProps } from 'types/components/Footer';
 
 export async function getStaticPaths() {
   return {
-    paths: await apiService.paths(),
+    paths: await PathsBuilder.build(),
     fallback: false
   };
 }
 
-export const getStaticProps:GetStaticProps = async ({ params }) => {
-  const { 
-    headerProps, 
-    footerProps, 
-    //Dictionary KEY: slug; VALUE: id
-    slugsIdDict, 
-    title } = await apiService.theme();
+export const getStaticProps:GetStaticProps = async ({ params: { slug } }) => {
+  const {
+    title,
+    description,
+    components
   // @ts-ignore
-  const slug = arrayToSlug(params.slug);
-  const page = await apiService.pages(
-    slugsIdDict[slug], 
-    //Dictionary KEY: id; VALUE: slug
-    Object.entries(slugsIdDict)
-    .reduce((prev, [slug, id]) => ({ ...prev, [id]: slug}), {})
-  );
+  } = await PageBuilder.build(slug);
   return {
     props:{
-      headerProps: {
-        slug,
-        ...headerProps
+      page: {
+        title,
+        description,
+        components: components.map(component => ({
+          ...component
+        }))
       },
-      footerProps,
-      title: `${title} - ${page.title}`,
-      components: page.components,
+      // @ts-ignore
+      headerProps: await PageBuilder.headerProps(slug),
+      footerProps: await PageBuilder.footerProps()
     }
   }
 }
 
-export default function SlugComposer({
-  headerProps,
-  footerProps,
-  title,
-  components,
-}) {
+interface AppProps {
+  page: Page
+  headerProps: HeaderProps
+  footerProps: FooterProps
+}
+export default function App({ page: { title, description, components }, headerProps, footerProps }: AppProps) {
   const content = useComponentParser(components);
+
   return (
     <>
       <Head>
         <title>{ title }</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content={ description } />
       </Head>
-      <Header 
-        { ...headerProps } 
-      />
+      <Header { ...headerProps } />
       <Main>
         { content }
       </Main>
-      <Footer 
-        { ...footerProps }
-      />
+      <Footer { ...footerProps } />
     </>
   )
 }

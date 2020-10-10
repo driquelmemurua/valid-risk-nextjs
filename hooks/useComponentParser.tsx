@@ -1,70 +1,75 @@
-import { ApiComponents } from "types/components";
 import { 
-  Carousel,
-  CardList,
+  CardList, 
+  Carousel, 
   ContactForm,
   HeroImage,
-  HeroWithDescription,
+  HeroWithDescription, 
   ImageList,
   QuoteBlock
-} from 'components';
+} from "components";
+import { Component } from "types/components";
+import { CardListDisc } from "types/components/CardList";
+import { CarouselDisc } from "types/components/Carousel";
+import { ContactFormDisc } from "types/components/ContactForm";
+import { HeroImageDisc } from "types/components/HeroImage";
+import { HeroWithDescriptionDisc } from "types/components/HeroWithDescription";
+import { ImageListDisc } from "types/components/ImageList";
+import { QuoteBlockDisc } from "types/components/QuoteBlock";
 
-export function useComponentParser(components: ApiComponents) {
-  return components
-  .map(component => {
-    switch (component.type) {
-      case 'carousel':
+export function useComponentParser(components: Component[]): JSX.Element[] {
+  return components.map(component => {
+    switch (component.discriminator) {
+      case CardListDisc:
+        return (
+          <CardList 
+            key={component.key}
+            { ...component.props } 
+          />
+        )
+      case CarouselDisc:
         return (
           <Carousel
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
-      case 'cardList':
+      case ContactFormDisc:
         return (
-          <CardList
+          <ContactForm 
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
-      case 'contactForm':
+      case HeroImageDisc:
         return (
-          <ContactForm
+          <HeroImage 
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
-      case 'heroImage':
+      case HeroWithDescriptionDisc:
         return (
-          <HeroImage
+          <HeroWithDescription 
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
-      case 'heroWithDescription':
-        return (
-          <HeroWithDescription
-            key={component.key}
-            { ...component.props }
-          />
-        )
-      case 'imageList':
+      case ImageListDisc:
         return (
           <ImageList
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
-      case 'quoteBlock':
+      case QuoteBlockDisc:
         return (
-          <QuoteBlock
+          <QuoteBlock 
             key={component.key}
-            { ...component.props }
+            { ...component.props } 
           />
         )
       default:
         null;
     }
-  })
-  .filter(component => component);
+  }).filter(component => component);
 }

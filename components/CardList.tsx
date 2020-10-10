@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CardListProps } from "types/components";
+import { CardListProps } from 'types/components/CardList';
 import { Preview } from './Preview';
 
 export function CardList(props: CardListProps) {

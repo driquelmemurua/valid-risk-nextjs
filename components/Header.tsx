@@ -2,27 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { COLORS } from 'consts';
+import { HeaderProps } from 'types/components/Header';
 
-type HeaderProps = {
-  navigation: Array<{
-    title: string,
-    slug: string,
-    subnav: Array<{
-      title: string,
-      slug: string
-    }>
-  }>,
-  slug: string,
-  logo: {
-    title: string,
-    image: {
-      src: string,
-      alt: string
-    }
-  }
-}
 export function Header({ navigation, slug, logo }: HeaderProps) {
-
+  console.log(slug)
   const navItems = navigation.map((item, index) => (
     <NavItem
       selected={ item.slug === slug }
@@ -95,13 +78,12 @@ const NavItem = styled.li<NavItemProps> `
 `;
 
 type LogoProps = {
-  title: string,
   image: {
     src: string,
     alt: string
   }
 }
-function Logo({ title, image: { src, alt }}: LogoProps) {
+function Logo({ image: { src, alt }}: LogoProps) {
   
   return (
     <Link
@@ -114,9 +96,6 @@ function Logo({ title, image: { src, alt }}: LogoProps) {
             src={ src }
             alt={ alt }
           />
-          <LogoText>
-            { title }
-          </LogoText>
         </LogoContainer>
       </a>
     </Link>

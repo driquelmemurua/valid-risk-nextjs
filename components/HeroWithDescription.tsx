@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HeroWithDescriptionProps } from "types/components";
+import { HeroWithDescriptionProps } from "types/components/HeroWithDescription";
 import { Preview } from './Preview';
 
 export function HeroWithDescription(props: HeroWithDescriptionProps) {

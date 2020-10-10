@@ -4,28 +4,22 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
 import styled from 'styled-components';
+import { FooterProps } from 'types/components/Footer';
 
-type FooterProps = {
-  supportLogin: string,
-  demoRequest: string,
-  addresses: string[],
-  mail: string,
-  phone: string
-}
 export function Footer({
   supportLogin,
   demoRequest,
   addresses,
   mail,
   phone
-}) {
+}: FooterProps) {
 
-  const addressNodes = addresses.map((address, index) => (
+  const addressNodes = addresses.map(({ location, key }) => (
     <dd 
-      key={ index }
+      key={ key }
     >
       <Item
-        href={ `https://maps.google.com/?q=${ address }` }
+        href={ `https://maps.google.com/?q=${ location }` }
       >
         <LocationOnIcon
           style={{
@@ -34,7 +28,7 @@ export function Footer({
           }}
         />
         <div>
-          { address }
+          { location }
         </div>
       </Item>
     </dd>

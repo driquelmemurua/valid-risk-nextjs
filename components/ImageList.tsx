@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ImageListProps } from "types/components";
+import { ImageListProps } from "types/components/ImageList";
 import { Preview } from './Preview';
 
 export function ImageList(props: ImageListProps) {

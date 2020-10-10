@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ContactFormProps } from "types/components";
+import { ContactFormProps } from "types/components/ContactForm";
 import { Preview } from './Preview';
 
 export function ContactForm(props: ContactFormProps) {

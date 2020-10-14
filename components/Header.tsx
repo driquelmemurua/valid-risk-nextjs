@@ -40,10 +40,10 @@ const Container = styled.header `
   min-width: fill-available;
   grid-template-columns: calc(50vw - 40em) max-content 1fr max-content calc(50vw - 40em);
   background-color: #F8F8F8;
-  padding-block-start: 4em;
+  padding-block-start: 2em;
   padding-block-end: 2em;
-  padding-inline-start: 4em;
-  padding-inline-end: 4em;
+  padding-inline-start: 2em;
+  padding-inline-end: 2em;
   -webkit-box-shadow: 0px 6px 10px -3px rgba(0,0,0,0.25);
   -moz-box-shadow: 0px 6px 10px -3px rgba(0,0,0,0.25);
   box-shadow: 0px 6px 10px -3px rgba(0,0,0,0.25);

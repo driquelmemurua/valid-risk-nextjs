@@ -69,10 +69,10 @@ export class PageBuilder {
       },
       navigation: Navigation.map(page => ({
         title: page.Page.Title,
-        slug: `/${page.Page.Slug}`,
+        slug: `/${page.Page.Slug || ''}`,
         subnav: page.SubItems.map(subpage => ({
           title: subpage.Page.Title,
-          slug: `/${page.Page.Slug}/${subpage.Page.Slug}`
+          slug: `/${page.Page.Slug || ''}/${subpage.Page.Slug || ''}`
         }))
       }))
     }

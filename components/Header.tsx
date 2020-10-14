@@ -74,7 +74,8 @@ type NavItemProps = {
 }
 const NavItem = styled.li<NavItemProps> `
   list-style-type: none;
-  color: ${props => props.selected ? COLORS.primary.dark : COLORS.black };
+  color:       ${ ({ selected }) => selected ? COLORS.primary.dark : COLORS.black };
+  font-weight: ${ ({ selected }) => selected ? 500 : 400 };
 `;
 
 type LogoProps = {

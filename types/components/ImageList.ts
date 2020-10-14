@@ -16,8 +16,11 @@ export type ImageListProps = {
 export const ImageListDisc = 'IMAGE_LIST';
 export class ImageListComponent {
   readonly discriminator = ImageListDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: ImageListProps
-  ) {}
+  ) {
+    this.key = `image_list-${key}`
+  }
 }

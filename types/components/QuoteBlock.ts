@@ -7,8 +7,11 @@ export type QuoteBlockProps = {
 export const QuoteBlockDisc = 'QUOTE_BLOCK';
 export class QuoteBlockComponent {
   readonly discriminator = QuoteBlockDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: QuoteBlockProps
-  ) {}
+  ) {
+    this.key = `quote_block-${key}`
+  }
 }

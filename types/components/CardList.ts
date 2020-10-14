@@ -11,8 +11,11 @@ export type CardListProps = {
 export const CardListDisc = 'CARD_LIST';
 export class CardListComponent {
   readonly discriminator = CardListDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: CardListProps
-  ) {}
+  ) {
+    this.key = `card_list-${key}`
+  }
 }

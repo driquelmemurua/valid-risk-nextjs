@@ -23,7 +23,7 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
         component.id.toString(),
         {
           cards: component.Cards.map(card => ({
-            key: card.id.toString(),
+            key: `card_list_card-${card.id.toString()}`,
             title: card.Title,
             icon: card.Icon,
             content: card.Content,
@@ -38,7 +38,7 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
         {
           margin: component.Margin,
           views: component.Views.map(view => ({
-            key: view.id.toString(),
+            key: `carousel_view-${view.id.toString()}`,
             background: {
               src: view.Background.url,
               alt: view.Background.alternativeText
@@ -96,7 +96,7 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
           position: component.Position,
           color: component.Color,
           items: component.Item.map(item => ({
-            key: item.id.toString(),
+            key: `image_list_item-${item.id.toString()}`,
             text: item.Text
           })),
           image: {

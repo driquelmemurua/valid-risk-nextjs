@@ -5,7 +5,6 @@ import { COLORS } from 'consts';
 import { HeaderProps } from 'types/components/Header';
 
 export function Header({ navigation, slug, logo }: HeaderProps) {
-  console.log(slug)
   const navItems = navigation.map((item, index) => (
     <NavItem
       selected={ item.slug === slug }

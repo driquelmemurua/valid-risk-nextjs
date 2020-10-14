@@ -17,8 +17,11 @@ export type CarouselProps = {
 export const CarouselDisc = 'CAROUSEL';
 export class CarouselComponent {
   readonly discriminator = CarouselDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: CarouselProps
-  ) {}
+  ) {
+    this.key = `carousel-${key}`
+  }
 }

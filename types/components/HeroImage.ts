@@ -9,8 +9,11 @@ export type HeroImageProps = {
 export const HeroImageDisc = 'HERO_IMAGE';
 export class HeroImageComponent {
   readonly discriminator = HeroImageDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: HeroImageProps
-  ) {}
+  ) {
+    this.key = `hero_image-${key}`
+  }
 }

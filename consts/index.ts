@@ -23,4 +23,8 @@ export const SUPPORT_LOGIN = (process.env.API_URI || 'http://localhost:1337') + 
 
 export const PAGES_IDS = {
   '/': 1
-}
+};
+
+export const MEDIA_QUERIES = {
+  phone: '812px',
+};

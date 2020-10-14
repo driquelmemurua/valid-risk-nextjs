@@ -11,8 +11,11 @@ export type HeroWithDescriptionProps = {
 export const HeroWithDescriptionDisc = 'HERO_WITH_DESCRIPTION';
 export class HeroWithDescriptionComponent {
   readonly discriminator = HeroWithDescriptionDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: HeroWithDescriptionProps
-  ) {}
+  ) {
+    this.key = `hero_with_description-${key}`
+  }
 }

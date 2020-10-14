@@ -5,8 +5,11 @@ export type ContactFormProps = {
 export const ContactFormDisc = 'ContactForm';
 export class ContactFormComponent {
   readonly discriminator = ContactFormDisc;
+  readonly key: string;
   constructor(
-    readonly key: string,
+    key: string,
     readonly props: ContactFormProps
-  ) {}
+  ) {
+    this.key = `contact_form-${key}`
+  }
 }

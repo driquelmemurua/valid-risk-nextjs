@@ -34,6 +34,7 @@ export function Header({ navigation, slug, logo }: HeaderProps) {
 }
 
 const Container = styled.header `
+  z-index: 99;
   display: grid;
   position: fixed;
   min-width: fill-available;

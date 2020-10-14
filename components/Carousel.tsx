@@ -4,15 +4,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { CarouselProps } from "types/components/Carousel";
-import { MEDIA_QUERIES } from 'consts';
+import { MEDIA_QUERIES, COLORS } from 'consts';
 
 export function Carousel({ margin, views }: CarouselProps) {
   const [selected, setSelected] = useState(0);
   const [firstRender, setFirstRender] = useState(true);
-  const [url, setUrl] = useState(views[0]);
   const refs = useRef<Array<HTMLDivElement>>([]);
-  /*
-
   useEffect(() => {
     setFirstRender(false);
   }, [])
@@ -21,28 +18,80 @@ export function Carousel({ margin, views }: CarouselProps) {
     const selectedRef = refs.current[selected];
     if(!firstRender && selectedRef){
       selectedRef.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      setUrl(items[selected].url);
     }
   }, [selected]);
 
-  */
-
-  const nodes = views.map(({ key, heading, button, background }) => (
-    <Item
-      key={ key }
-    >
-      <Content
-        backgroundImage={background.src}
+  const nodes = views.map(({ 
+    key, 
+    heading, 
+    button: {
+      color: colorName,
+      text,
+      uri
+    }, 
+    background: {
+      src,
+      alt
+    }
+  }, index) => {
+    let highlightColor = '#000';
+    let buttonColor = '#000';
+    if( colorName === 'Green' ) {
+      highlightColor = COLORS.firstComplementary.light;
+      buttonColor    = COLORS.firstComplementary.default;
+    }
+    else if( colorName === 'Purple' ) {
+      highlightColor = COLORS.primary.light;
+      buttonColor    = COLORS.primary.default;
+    }
+    else if( colorName === 'Yellow' ) {
+      highlightColor = COLORS.secondComplementary.light;
+      buttonColor    = COLORS.secondComplementary.default;
+    }
+    return (
+      <Item
+        ref={(ref:HTMLDivElement) => {
+          if(ref)
+            refs.current[index] = ref;
+        }}
+        key={ key }
       >
-        <Heading>{ heading }</Heading>
-        <Button>{ button.text }</Button>
-      </Content>
-    </Item>
-  ))
+        <Content
+          title={ alt }
+          backgroundImage={ src }
+        >
+          <Heading
+            color={ highlightColor }
+          >
+            { heading }
+          </Heading>
+          <Button
+            color={ buttonColor }
+          >
+            <Link
+              href={ '/[[...slug]]' }
+              as={ uri }
+            >
+              { text }
+            </Link>
+          </Button>
+        </Content>
+      </Item>
+    )
+  })
 
+  const dots = views.map((view, index) => (
+    <Dot 
+      selected={ index === selected }
+      key={ `dot-${view.key}` }
+      onClick={() => setSelected(index) }
+    />
+  ));
 
   return (
-    <CarouselContainer>
+    <CarouselContainer
+      style={{ margin }}
+    >
       <LeftArrow
         onClick={() => setSelected(selected === 0 ? (views.length-1) : selected-1) } 
       />
@@ -52,12 +101,14 @@ export function Carousel({ margin, views }: CarouselProps) {
       <RightArrow
         onClick={ () => setSelected(selected === views.length-1 ? 0 : selected+1) } 
       />
+      <DotsContainer>
+        { dots }
+      </DotsContainer>
     </CarouselContainer>
   )
 }
 
 const CarouselContainer = styled.section `
-  background-color: #444;
   @media (max-width: ${ MEDIA_QUERIES.phone } ) {
     padding-inline-start: 0;
     padding-inline-end: 0;
@@ -85,6 +136,28 @@ const CarouselItems = styled.div `
   }
 `;
 
+type DotProps = {
+  selected: boolean;
+}
+const Dot = styled.div<DotProps>`
+  display: block-inline;
+  background-color: ${ ({ selected }) => selected ? COLORS.white : 'transparent' };
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid ${ COLORS.white };
+  cursor: pointer;
+`;
+const DotsContainer = styled.div `
+  display: flex;
+  gap: 1em;
+  position: absolute;
+  justify-content: center;
+  bottom: 1em;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
+
 const Item = styled.div`
   display: grid;
   & > * {
@@ -105,16 +178,13 @@ const Content = styled.div<ContentProps> `
     padding: 0;
   }
 `;
-const Image = styled.img `
-  width: 100%;
-  height: auto;
-`;
 
-function Heading({ children }) {
+function Heading({ children, color }) {
   const nodes = children.split('\n').map((text, index) => (
     <HeadingLine
       key={text || index.toString()}
       isText={text ? true : false}
+      color={ color }
     >
       { text || '\n' }
     </HeadingLine>
@@ -127,19 +197,21 @@ function Heading({ children }) {
 }
 const HeadingContainer = styled.h2 `
   font-size: 2.5em;
+  min-height: 360px;
   margin: 0;
-  color: #F8F8F8;
+  color: ${ COLORS.white };
 `;
 type HeadingLineProps = {
   isText: boolean
+  color: string
 }
 const HeadingLine = styled.div<HeadingLineProps> `
   display: inline-block;
   white-space: pre-line;
-  background-color: ${props => props.isText ? 'rgba(205, 181, 248, 0.5)' : 'transparent'};
-  min-height:       ${props => props.isText ? '0'                        : '1em'};
-  width:            ${props => props.isText ? 'auto'                     : '100%'};
-  padding:          ${props => props.isText ? '0.25em'                   : '0'};
+  background-color: ${ ({ isText, color }) => isText ? `${ color }7f` : 'transparent'};
+  min-height:       ${ ({ isText, color }) => isText ? '0'                  : '1em'};
+  width:            ${ ({ isText, color }) => isText ? 'auto'               : '100%'};
+  padding:          ${ ({ isText, color }) => isText ? '0.25em'             : '0'};
 `;
 
 const ArrowStyle = css`
@@ -148,6 +220,7 @@ const ArrowStyle = css`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+  cursor: pointer;
 `;
 const LeftArrow = styled(ChevronLeftIcon)`
   ${ArrowStyle}
@@ -158,6 +231,18 @@ const RightArrow = styled(ChevronRightIcon)`
   right: 0;
 `;
 
-function Button({ children }) {
-  return <button></button>
+type ButtonProps = {
+  color: string
 }
+const Button = styled.div<ButtonProps> `
+  color: #F8F8F8;
+  background-color: ${ ({ color }) => color };
+  display: inline-block;
+  font-size: 1.5em;
+  padding-block-start: 20px;
+  padding-block-end: 20px;
+  padding-inline-start: 56px;
+  padding-inline-end: 56px;
+  cursor: pointer;
+  pointer-events: all;
+`;

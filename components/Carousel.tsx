@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { CarouselProps } from "types/components/Carousel";
 import { MEDIA_QUERIES, COLORS } from 'consts';
+import { BackgroundImage } from 'components/BackgroundImage';
 
 export function Carousel({ margin, views }: CarouselProps) {
   const [selected, setSelected] = useState(0);
@@ -30,8 +31,9 @@ export function Carousel({ margin, views }: CarouselProps) {
       uri
     }, 
     background: {
-      src,
-      alt
+      img,
+      alt,
+      lqip
     }
   }, index) => {
     let highlightColor = '#000';
@@ -56,9 +58,10 @@ export function Carousel({ margin, views }: CarouselProps) {
         }}
         key={ key }
       >
-        <Content
+        <ModifiedBg
           title={ alt }
-          backgroundImage={ src }
+          placeholder={ lqip }
+          img={img}
         >
           <Heading
             color={ highlightColor }
@@ -75,7 +78,7 @@ export function Carousel({ margin, views }: CarouselProps) {
               { text }
             </Link>
           </Button>
-        </Content>
+        </ModifiedBg>
       </Item>
     )
   })
@@ -107,6 +110,17 @@ export function Carousel({ margin, views }: CarouselProps) {
     </CarouselContainer>
   )
 }
+
+const ModifiedBg = styled(BackgroundImage) `
+  padding-inline-start: 4em;
+  padding-inline-end:   4em;
+  padding-block-start:  6em;
+  padding-block-end:  7em;
+  background-size: cover;
+  @media (max-width: ${ MEDIA_QUERIES.phone } ) {
+    padding: 0;
+  }
+`
 
 const CarouselContainer = styled.section `
   @media (max-width: ${ MEDIA_QUERIES.phone } ) {
@@ -164,20 +178,6 @@ const Item = styled.div`
     align-self: center;
   }
 `;
-type ContentProps = {
-  backgroundImage: string
-}
-const Content = styled.div<ContentProps> `
-  padding-inline-start: 4em;
-  padding-inline-end:   4em;
-  padding-block-start:  6em;
-  padding-block-end:  7em;
-  background-image: url(${props => props.backgroundImage});
-  background-size: cover;
-  @media (max-width: ${ MEDIA_QUERIES.phone } ) {
-    padding: 0;
-  }
-`;
 
 function Heading({ children, color }) {
   const nodes = children.split('\n').map((text, index) => (
@@ -209,9 +209,9 @@ const HeadingLine = styled.div<HeadingLineProps> `
   display: inline-block;
   white-space: pre-line;
   background-color: ${ ({ isText, color }) => isText ? `${ color }7f` : 'transparent'};
-  min-height:       ${ ({ isText, color }) => isText ? '0'                  : '1em'};
-  width:            ${ ({ isText, color }) => isText ? 'auto'               : '100%'};
-  padding:          ${ ({ isText, color }) => isText ? '0.25em'             : '0'};
+  min-height:       ${ ({ isText })        => isText ? '0'            : '1em'};
+  width:            ${ ({ isText })        => isText ? 'auto'         : '100%'};
+  padding:          ${ ({ isText })        => isText ? '0.25em'       : '0'};
 `;
 
 const ArrowStyle = css`

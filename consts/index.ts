@@ -26,5 +26,5 @@ export const PAGES_IDS = {
 };
 
 export const MEDIA_QUERIES = {
-  phone: '812px',
+  phone: '768px',
 };

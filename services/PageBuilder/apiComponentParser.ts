@@ -40,8 +40,26 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
           views: component.Views.map(view => ({
             key: `carousel_view-${view.id.toString()}`,
             background: {
-              src: view.Background.url,
-              alt: view.Background.alternativeText
+              alt: view.Background.alternativeText,
+              lqip: view.Background.formats.thumbnail.url,
+              img: {
+                small: {
+                  url: view.Background.formats.small ? view.Background.formats.small.url : view.Background.url,
+                  width: view.Background.formats.small ? view.Background.formats.small.width : view.Background.width
+                },
+                medium: {
+                  url: view.Background.formats.medium ? view.Background.formats.medium.url : view.Background.url,
+                  width: view.Background.formats.medium ? view.Background.formats.medium.width : view.Background.width
+                },
+                large: {
+                  url: view.Background.formats.large ? view.Background.formats.large.url : view.Background.url,
+                  width: view.Background.formats.large ? view.Background.formats.large.width : view.Background.width
+                },
+                original: {
+                  url: view.Background.url,
+                  width: view.Background.width
+                },
+              }
             },
             heading: view.Heading,
             button: {

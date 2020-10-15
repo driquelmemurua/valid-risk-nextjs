@@ -36,9 +36,9 @@ export function Carousel({ margin, views }: CarouselProps) {
     background: {
       srcs,
       alt,
-      lqip
+      placeholder
     }
-  }, index) => {
+  }) => {
     let highlightColor = '#000';
     let buttonColor = '#000';
     if( colorName === 'Green' ) {
@@ -60,7 +60,7 @@ export function Carousel({ margin, views }: CarouselProps) {
         <Content
           title={ alt }
           srcs={ srcs }
-          placeholder={ lqip }
+          placeholder={ placeholder }
         >
           <Heading
             color={ highlightColor }

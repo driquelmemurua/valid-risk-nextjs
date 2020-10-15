@@ -1,8 +1,12 @@
 export type HeroImageProps = {
   content: string
   image: {
-    src: string
+    placeholder: string
     alt: string
+    srcs: {
+      url: string
+      width: number
+    }[]
   }
   margin: string
 }

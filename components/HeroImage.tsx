@@ -1,15 +1,37 @@
+import { useSrcset } from 'hooks/useSrcset';
 import styled from 'styled-components';
 import { HeroImageProps } from "types/components/HeroImage";
-import { Preview } from './Preview';
+import { COLORS } from 'consts';
 
-export function HeroImage(props: HeroImageProps) {
+export function HeroImage({ content, image: { placeholder, srcs }, margin }: HeroImageProps) {
+  const src = useSrcset({ placeholder, srcs });
   return (
-    <Container>
-      HeroImage
-      <Preview { ...props } />
+    <Container
+      src={ src }
+      style={{margin}}
+    >
+      <Heading>
+        { content }
+      </Heading>
     </Container>
   )
 }
 
-const Container = styled.section`
+type ContainerProps = {
+  src: string
+}
+const Container = styled.section<ContainerProps> `
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(${ ({ src }) => src });
+  background-size: cover;
+`;
+
+const Heading = styled.h1`
+  font-size: 40px;
+  color: ${ COLORS.white };
+  font-weight: bold;
+  text-shadow: 0px 4px 3px #000000;
 `;

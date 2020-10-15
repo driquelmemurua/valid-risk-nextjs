@@ -41,7 +41,7 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
             key: `carousel_view-${view.id.toString()}`,
             background: {
               alt: view.Background.alternativeText,
-              lqip: view.Background.formats.thumbnail.url,
+              placeholder: view.Background.formats.thumbnail.url,
               srcs: [
                 view.Background.formats.small ? {
                   url: view.Background.formats.small.url,
@@ -85,8 +85,26 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
           margin: component.Margin,
           content: component.Content,
           image: {
-            src: component.Image.url,
-            alt: component.Image.alternativeText
+            placeholder: component.Image.formats.thumbnail.url,
+            srcs: [
+              component.Image.formats.small ? {
+                url: component.Image.formats.small.url,
+                width: component.Image.formats.small.width
+              } : null,
+              component.Image.formats.medium ? {
+                url: component.Image.formats.medium.url,
+                width: component.Image.formats.medium.width
+              } : null,
+              component.Image.formats.large ? {
+                url: component.Image.formats.large.url,
+                width: component.Image.formats.large.width
+              } : null,
+              {
+                url: component.Image.url,
+                width: component.Image.width
+              },
+            ].filter(src => src),
+            alt: component.Image.alternativeText,
           }
         }
       )

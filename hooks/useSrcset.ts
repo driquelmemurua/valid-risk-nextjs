@@ -6,7 +6,7 @@ type useSrcsetParams = {
     url: string
     width: number
   }[]
-  sizes: string
+  sizes?: string
 }
 
 export function useSrcset({ placeholder, srcs, sizes = '100vw' }: useSrcsetParams) {

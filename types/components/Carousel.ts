@@ -4,7 +4,7 @@ export type CarouselProps = {
     key: string
     background: {
       alt: string
-      lqip: string
+      placeholder: string
       srcs: {
         url: string
         width: number

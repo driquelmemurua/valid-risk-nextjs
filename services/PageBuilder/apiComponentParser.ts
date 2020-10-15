@@ -42,24 +42,24 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
             background: {
               alt: view.Background.alternativeText,
               lqip: view.Background.formats.thumbnail.url,
-              img: {
-                small: {
-                  url: view.Background.formats.small ? view.Background.formats.small.url : view.Background.url,
-                  width: view.Background.formats.small ? view.Background.formats.small.width : view.Background.width
-                },
-                medium: {
-                  url: view.Background.formats.medium ? view.Background.formats.medium.url : view.Background.url,
-                  width: view.Background.formats.medium ? view.Background.formats.medium.width : view.Background.width
-                },
-                large: {
-                  url: view.Background.formats.large ? view.Background.formats.large.url : view.Background.url,
-                  width: view.Background.formats.large ? view.Background.formats.large.width : view.Background.width
-                },
-                original: {
+              srcs: [
+                view.Background.formats.small ? {
+                  url: view.Background.formats.small.url,
+                  width: view.Background.formats.small.width
+                } : null,
+                view.Background.formats.medium ? {
+                  url: view.Background.formats.medium.url,
+                  width: view.Background.formats.medium.width
+                } : null,
+                view.Background.formats.large ? {
+                  url: view.Background.formats.large.url,
+                  width: view.Background.formats.large.width
+                } : null,
+                {
                   url: view.Background.url,
                   width: view.Background.width
                 },
-              }
+              ].filter(src => src)
             },
             heading: view.Heading,
             button: {

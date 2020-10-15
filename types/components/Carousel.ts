@@ -3,26 +3,12 @@ export type CarouselProps = {
   views: {
     key: string
     background: {
-        alt: string
-        lqip: string
-        img: {
-          small: {
-            url: string
-            width: number
-          }
-          medium: {
-            url: string
-            width: number
-          }
-          large: {
-            url: string
-            width: number
-          }
-          original: {
-            url: string
-            width: number
-          }
-        }
+      alt: string
+      lqip: string
+      srcs: {
+        url: string
+        width: number
+      }[]
     }
     heading: string
     button: {

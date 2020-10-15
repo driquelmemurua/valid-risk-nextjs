@@ -9,18 +9,21 @@ import { BackgroundImage } from 'components/BackgroundImage';
 
 export function Carousel({ margin, views }: CarouselProps) {
   const [selected, setSelected] = useState(0);
-  const [firstRender, setFirstRender] = useState(true);
-  const refs = useRef<Array<HTMLDivElement>>([]);
-  useEffect(() => {
-    setFirstRender(false);
-  }, [])
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const selectedRef = refs.current[selected];
-    if(!firstRender && selectedRef){
-      selectedRef.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const container = containerRef.current;
+    if(containerRef){
+      container.scrollTo({ behavior: 'smooth', left: container.scrollWidth*selected/views.length });
     }
   }, [selected]);
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      setSelected(selected === (views.length - 1) ? 0 : selected + 1);
+    }, 10000);
+    return () => clearTimeout(interval)
+  }, [selected])
 
   const nodes = views.map(({ 
     key, 
@@ -31,7 +34,7 @@ export function Carousel({ margin, views }: CarouselProps) {
       uri
     }, 
     background: {
-      img,
+      srcs,
       alt,
       lqip
     }
@@ -52,16 +55,12 @@ export function Carousel({ margin, views }: CarouselProps) {
     }
     return (
       <Item
-        ref={(ref:HTMLDivElement) => {
-          if(ref)
-            refs.current[index] = ref;
-        }}
         key={ key }
       >
-        <ModifiedBg
+        <Content
           title={ alt }
+          srcs={ srcs }
           placeholder={ lqip }
-          img={img}
         >
           <Heading
             color={ highlightColor }
@@ -78,7 +77,7 @@ export function Carousel({ margin, views }: CarouselProps) {
               { text }
             </Link>
           </Button>
-        </ModifiedBg>
+        </Content>
       </Item>
     )
   })
@@ -98,7 +97,7 @@ export function Carousel({ margin, views }: CarouselProps) {
       <LeftArrow
         onClick={() => setSelected(selected === 0 ? (views.length-1) : selected-1) } 
       />
-        <CarouselItems>
+        <CarouselItems ref={containerRef}>
           { nodes }
         </CarouselItems>
       <RightArrow
@@ -111,7 +110,7 @@ export function Carousel({ margin, views }: CarouselProps) {
   )
 }
 
-const ModifiedBg = styled(BackgroundImage) `
+const Content = styled(BackgroundImage) `
   padding-inline-start: 4em;
   padding-inline-end:   4em;
   padding-block-start:  6em;

@@ -1,15 +1,9 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import { isImageValid } from 'utils/isImageValid';
+import { useSrcset } from 'hooks/useSrcset';
 
-export function BackgroundImage({ placeholder, img: { small, medium, large, original }, children, ...rest }) {
-  const [src, setSrc] = useState(placeholder);
-  useEffect(() => {
-    const handleImageValid = (loadedSrc: string) => (setSrc(loadedSrc));
-    const srcset = `${small.url} ${small.width}w, ${medium.url} ${medium.width}w, ${large.url} ${large.width}w, ${original.url} ${original.width}w`;
-    isImageValid(srcset)
-    .then(handleImageValid);
-  }, [])
+export function BackgroundImage({ placeholder, srcs, sizes='100vw', children, ...rest }) {
+  const src = useSrcset({ placeholder, srcs, sizes });
+
   return (
     <Container
       src={ src }

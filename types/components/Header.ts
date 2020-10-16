@@ -13,5 +13,6 @@ export type HeaderProps = {
       src: string,
       alt: string
     }
+    title: string
   }
 }

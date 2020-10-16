@@ -3,6 +3,7 @@ import { ApiImage } from "types/api/Image";
 export type ThemeSettings = {
   Logo: {
     Image: ApiImage
+    Title: string
   }
   Navigation: {
     Page: {

@@ -65,7 +65,8 @@ export class PageBuilder {
         image: {
           src: Logo.Image.url,
           alt: Logo.Image.alternativeText
-        }
+        },
+        title: Logo.Title
       },
       navigation: Navigation.map(page => ({
         title: page.Page.Title,

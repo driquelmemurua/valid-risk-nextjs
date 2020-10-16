@@ -9,7 +9,11 @@ export type ImageListProps = {
     text: string
   }[]
   image: {
-    src: string
+    placeholder: string
+    srcs: {
+      url: string
+      width: number
+    }[]
     alt: string
   }
 }

@@ -3,7 +3,11 @@ export type HeroWithDescriptionProps = {
   description: string
   color: 'Purple' | 'Yellow' | 'Green'
   image: {
-    src: string
+    placeholder: string
+    srcs: {
+      url: string
+      width: number
+    }[]
     alt: string
   }
   margin: string

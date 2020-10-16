@@ -83,8 +83,9 @@ type LogoProps = {
     src: string,
     alt: string
   }
+  title: string
 }
-function Logo({ image: { src, alt }}: LogoProps) {
+function Logo({ image: { src, alt }, title }: LogoProps) {
   
   return (
     <Link
@@ -97,6 +98,9 @@ function Logo({ image: { src, alt }}: LogoProps) {
             src={ src }
             alt={ alt }
           />
+          <LogoText>
+            { title }
+          </LogoText>
         </LogoContainer>
       </a>
     </Link>
@@ -104,7 +108,13 @@ function Logo({ image: { src, alt }}: LogoProps) {
 }
 const LogoContainer = styled.div `
   display: grid;
-  grid-template-columns: auto max-content;
+  grid-template-columns: auto 1em max-content;
+  & > *:nth-child(1) {
+    grid-column: 1 / 2;
+  }
+  & > *:nth-child(2) {
+    grid-column: 3 / 4;
+  }
 `;
 const LogoImage = styled.img `
   width: 95px;
@@ -112,7 +122,7 @@ const LogoImage = styled.img `
 `;
 const LogoText = styled.div `
   color: ${ COLORS.primary.dark };
-  font-size: 40px;
+  font-size: 48px;
   align-self: end;
-  font-weight: 200;
+  font-weight: 600;
 `;

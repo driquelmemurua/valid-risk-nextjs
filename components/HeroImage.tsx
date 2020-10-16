@@ -33,5 +33,5 @@ const Heading = styled.h1`
   font-size: 40px;
   color: ${ COLORS.white };
   font-weight: bold;
-  text-shadow: 0px 4px 3px #000000;
+  text-shadow: 2px 3px 2px ${ `${ COLORS.black }BF` };
 `;

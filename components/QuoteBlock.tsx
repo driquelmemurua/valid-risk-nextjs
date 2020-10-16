@@ -50,8 +50,8 @@ type ContainerType = {
   bgColor: string
 }
 const Container = styled.section <ContainerType>`
-  display: grid;
-  grid-template-columns: max-content 1fr;
+  display: flex;
+  justify-content: center;
   padding-block-start: 2em;
   padding-block-end: 2em;
   padding-inline-start: 1em;
@@ -59,6 +59,13 @@ const Container = styled.section <ContainerType>`
   background-color: ${ ({ bgColor }) => bgColor };
   color: ${ COLORS.white };
   font-weight: bold;
+
+  & > *:nth-child(1) {
+    grid-column: 2 / 3;
+  }
+  & > *:nth-child(2) {
+    grid-column: 3 / 4;
+  }
 `;
 
 const Paragraph = styled.p `

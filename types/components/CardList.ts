@@ -4,7 +4,7 @@ export type CardListProps = {
     title: string
     icon: string
     content: string
-    color: string
+    color: 'Purple' | 'White'
   }[]
   margin: string
 }

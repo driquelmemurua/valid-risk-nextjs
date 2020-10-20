@@ -24,8 +24,7 @@ function getColors(color: 'White' | 'Purple') {
   }
 }
 
-export function CardList({ cards: _cards , margin }: CardListProps) {
-  const cards = [..._cards, _cards[0], _cards[1]];
+export function CardList({ cards , margin }: CardListProps) {
   const cardNodes = cards.map(({ key, title, icon, content, color }) => (
     <Card
       key={ key }

@@ -119,6 +119,7 @@ const TitleDrop = styled.h3 `
   margin-block-end: 2em;
   padding-inline-start: 2.5em;
   width: 80%;
+  font-family: BentonSans;
 `;
 
 const List = styled.ul `
@@ -128,4 +129,5 @@ const List = styled.ul `
 
 const Item = styled.li `
   font-size: 18px;
+  font-family: BentonSans;
 `;

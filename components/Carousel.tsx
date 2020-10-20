@@ -117,7 +117,10 @@ const Content = styled(BackgroundImage) `
   padding-block-end:  7em;
   background-size: cover;
   @media (max-width: ${ MEDIA_QUERIES.phone } ) {
-    padding: 0;
+    padding-inline-start: 1em;
+    padding-inline-end: 1em;
+    padding-block-start: 1em;
+    padding-block-end: 4em;
   }
 `
 
@@ -195,7 +198,7 @@ function Heading({ children, color }) {
   )
 }
 const HeadingContainer = styled.h2 `
-  font-size: 2.5em;
+  font-size: 2em;
   min-height: 360px;
   margin: 0;
   color: ${ COLORS.white };
@@ -220,6 +223,11 @@ const ArrowStyle = css`
   top: 50%;
   transform: translate(0, -50%);
   cursor: pointer;
+  @media (max-width: ${ MEDIA_QUERIES.phone } ) {
+    transform: translate(0, 0);
+    top: auto;
+    bottom: 0;
+  }
 `;
 const LeftArrow = styled(ChevronLeftIcon)`
   ${ArrowStyle}

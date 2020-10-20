@@ -28,11 +28,3 @@ export const PAGES_IDS = {
 export const MEDIA_QUERIES = {
   phone: '768px',
 };
-
-import HOMEPAGE from './homepage';
-import CONTACT from './contact';
-export const PAGES = {
-  1: HOMEPAGE,
-  5: CONTACT
-}
-export { default as THEME_SETTINGS } from './theme-settings';

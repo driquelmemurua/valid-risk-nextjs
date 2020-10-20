@@ -31,6 +31,7 @@ const Container = styled.section<ContainerProps> `
 
 const Heading = styled.h1`
   font-size: 40px;
+  text-align: center;
   color: ${ COLORS.white };
   font-weight: bold;
   text-shadow: 2px 3px 2px ${ `${ COLORS.black }BF` };

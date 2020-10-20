@@ -1,4 +1,4 @@
-import { COLORS } from 'consts';
+import { COLORS, MEDIA_QUERIES } from 'consts';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import MailIcon from '@material-ui/icons/Mail';
@@ -123,20 +123,35 @@ export function Footer({
 const Container = styled.footer `
   display: grid;
   grid-template-columns: calc(50vw - 40em) 1fr 1fr 1fr calc(50vw - 40em);
-  background-color: ${ COLORS.gray };
+  background-color: ${ COLORS.black };
   padding-inline-start: 3em;
   padding-inline-end: 3em;
   padding-block-start: 1.65em;
   padding-block-end: 2.5em;
+  @media (max-width: ${ MEDIA_QUERIES.phone }) {
+    padding-inline-start: 2em;
+    padding-inline-end: 2em;
+    padding-block-end: 1.5em;
+    grid-gap: 1em 0;
+  }
 
   & > *:nth-child(1) {
-    grid-column: 2 / 3;
+    grid-column: 2;
+    @media (max-width: ${ MEDIA_QUERIES.phone }) {
+      grid-column: 2 / 4;
+    }
   }
   & > *:nth-child(2) {
-    grid-column: 3 / 4;
+    grid-column: 3;
+    @media (max-width: ${ MEDIA_QUERIES.phone }) {
+      grid-column: 2 / 4;
+    }
   }
   & > *:nth-child(3) {
-    grid-column: 4 / 5;
+    grid-column: 4;
+    @media (max-width: ${ MEDIA_QUERIES.phone }) {
+      grid-column: 2 / 4;
+    }
   }
 `;
 

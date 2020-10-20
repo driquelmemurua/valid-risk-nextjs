@@ -24,43 +24,33 @@ function getColors(color: 'White' | 'Purple') {
   }
 }
 
-export function CardList({ cards , margin }: CardListProps) {
-  const titles = cards.map(({ key, title, color }) => (
-    <Title
-      key={ `title-${ key }` }
+export function CardList({ cards: _cards , margin }: CardListProps) {
+  const cards = [..._cards, _cards[0], _cards[1]];
+  const cardNodes = cards.map(({ key, title, icon, content, color }) => (
+    <Card
+      key={ key }
       { ...getColors(color) }
     >
-      { title }
-    </Title>
+      <IconContainer>
+        <CustomIcon>
+          { icon }
+        </CustomIcon>
+      </IconContainer>
+      <Title>
+        { title }
+      </Title>
+      <Content>
+        { content }
+      </Content>
+    </Card>
   ));
-  const icons = cards.map(({ key, icon, color }) => (
-    <IconContainer
-      key={ `icon-${ key }` }
-      { ...getColors(color) }
-    >
-      <CustomIcon
-      >
-        { icon }
-      </CustomIcon>
-    </IconContainer>
-  ));
-  const paragraphs = cards.map(({ key, content, color }) => (
-    <Content
-      key={ `content-${ key }` }
-      { ...getColors(color) }
-    >
-      { content }
-    </Content>
-  ));
-  
+
   return (
     <Container
       style={{ margin }}
       items={ cards.length }
     >
-      { titles }
-      { icons }
-      { paragraphs }
+      { cardNodes }
     </Container>
   )
 }
@@ -69,11 +59,12 @@ type ContainerProps = {
   items: number
 }
 const Container = styled.section<ContainerProps> `
-  display: grid;
-  grid-template-columns: repeat(${ ({ items }) => items }, 1fr);
+  display: flex;
   box-sizing: content-box;
-  max-width: calc(${ ({ items }) => items }*(256px + 2em));
-  gap: 0 4em;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: calc(${ ({ items }) => items }*(256px + 4em));
+  gap: 2em 4em;
   padding-inline-start: 2em;
   padding-inline-end: 2em;
 `;
@@ -86,38 +77,35 @@ type CardProps = {
 const CardStyle = css<CardProps> `
   color: ${ ({ fontColor }) => fontColor };
   background-color: ${ ({ bgColor }) => bgColor };
-  -webkit-box-shadow: -8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor }, 8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor };
-  -moz-box-shadow:    -8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor }, 8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor };
-  box-shadow:         -8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor }, 8px 0px 6px -7.5px ${ ({ shadowColor }) => shadowColor };
+  padding-block-start: 1em;
+  width: 256px;
+`;
+const Card = styled.div `
+  ${CardStyle}
+  -webkit-box-shadow: 0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
+  -moz-box-shadow:    0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
+  box-shadow:         0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
 `;
 
 const IconContainer = styled.div `
-  ${CardStyle}
   text-align: center;
-  padding-block-start: 1em;
-  margin-block-end: -1em;
-  padding-block-end: 1em;
-  margin-block-start: -1em;
+  padding-block-end: 0.5em;
 `;
 const CustomIcon = styled(Icon) `
   font-size: 48px !important;
 `;
 
 const Title = styled.h2 `
-  ${CardStyle}
-  font-size: 30px;
+  font-size: 1.5em;
+  padding-inline-start: 0.25em;
+  padding-inline-end: 0.25em;
   font-weight: bold;
   text-align: center;
-  padding-block-start: 1em;
-  padding-block-end: 0.5em;
 `;
 
 const Content = styled.p `
-  ${CardStyle}
-  font-size: 18px;
+  font-size: 1em;
   white-space: pre-line;
   padding: 1em;
-  -webkit-box-shadow: 0px 8px 5px 1px ${ ({ shadowColor }) => shadowColor };
-  -moz-box-shadow:    0px 8px 5px 1px ${ ({ shadowColor }) => shadowColor };
-  box-shadow:         0px 8px 5px 1px ${ ({ shadowColor }) => shadowColor };
+  font-family: BentonSans;
 `;

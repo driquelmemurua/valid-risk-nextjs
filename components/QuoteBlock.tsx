@@ -31,19 +31,15 @@ export function QuoteBlock({ margin, text, color, url }: QuoteBlockProps) {
       bgColor={ bgColor }
     >
       <Quote />
-      <ContainerBox>
         <Paragraph>
           { start }
           { quote }
           { end }
-      
         </Paragraph>
         <Link
-            color={ COLORS.firstComplementary.default }>
-            {'See more'}
-          </Link>
-      </ContainerBox>
-      
+          color={ COLORS.firstComplementary.default }>
+          {'See more'}
+        </Link>
     </Container>
   )
 }
@@ -70,11 +66,7 @@ background: linear-gradient(90deg, rgba(15,19,19,1) 0%, rgba(67,85,87,1) 65%, rg
     grid-column: 3 / 4;
   }
 `;
-const ContainerBox = styled.section`
-  display: flex;
-  flex-direction: column;
 
-`;
 const Quote = styled(FormatQuoteIcon) `
   color: ${ COLORS.white };
   font-size: 50px !important;

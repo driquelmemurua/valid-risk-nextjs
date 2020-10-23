@@ -8,10 +8,6 @@ import { Main, Header, Footer } from 'components';
 import { HeaderProps } from 'types/components/Header';
 import { FooterProps } from 'types/components/Footer';
 
-import NEXT from 'next';
-
-if(process.env.NODE_ENV !== 'production') console.log(NEXT);
-
 export async function getStaticPaths() {
   return {
     paths: await PathsBuilder.build(),

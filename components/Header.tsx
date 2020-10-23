@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { COLORS, MEDIA_QUERIES } from 'consts';
 import { HeaderProps } from 'types/components/Header';
 import MenuIcon from '@material-ui/icons/Menu';
+import useWindowScroll from 'react-use/lib/useWindowScroll';
 
 export function Header({ navigation, slug, logo }: HeaderProps) {
   const [displayNav, setDisplayNav] = useState(false);
@@ -136,6 +137,10 @@ const NavItem = styled.li<NavItemProps> `
   }
 `;
 
+const LOGO_SIZE = 64;
+const SHRUNK_LOGO_SIZE = 32;
+const DISTANCE_TO_SHRINK = 380;
+
 type LogoProps = {
   image: {
     src: string,
@@ -144,7 +149,10 @@ type LogoProps = {
   title: string
 }
 function Logo({ image: { src, alt }, title }: LogoProps) {
-  
+  const { y: windowScroll } = useWindowScroll();
+  const size = !Math.trunc(windowScroll / DISTANCE_TO_SHRINK) ? LOGO_SIZE : SHRUNK_LOGO_SIZE;
+  console.log(windowScroll)
+
   return (
     <Link
       href={ '/[[...slug]]' }
@@ -152,10 +160,14 @@ function Logo({ image: { src, alt }, title }: LogoProps) {
     >
       <a>
         <LogoContainer>
-          <LogoImage 
-            src={ src }
-            alt={ alt }
-          />
+          <ImageContainer
+            size={size}
+          >
+            <LogoImage 
+              src={ src }
+              alt={ alt }
+            />
+          </ImageContainer>
           <LogoText>
             { title }
           </LogoText>
@@ -164,15 +176,26 @@ function Logo({ image: { src, alt }, title }: LogoProps) {
     </Link>
   );
 }
+
 const LogoContainer = styled.div `
-  display: grid;
-  grid-template-columns: 64px 0.5em max-content;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  align-items: flex-end;
+
   & > *:nth-child(1) {
     grid-column: 1 / 2;
   }
   & > *:nth-child(2) {
     grid-column: 3 / 4;
   }
+`;
+type ImageContainerProps = {
+  size: number
+}
+const ImageContainer = styled.div<ImageContainerProps> `
+  width: ${ ({ size }) => size }px;
+  transition: width 0.4s ease-in-out 0.05s;
 `;
 const LogoImage = styled.img `
   width: 100%;
@@ -181,6 +204,5 @@ const LogoImage = styled.img `
 const LogoText = styled.div `
   color: ${ COLORS.primary.dark };
   font-size: 1.5em;
-  align-self: end;
   font-weight: 600;
 `;

@@ -5,6 +5,7 @@ import { HeroImageComponent } from "types/components/HeroImage";
 import { HeroWithDescriptionComponent } from "types/components/HeroWithDescription";
 import { ImageListComponent } from "types/components/ImageList";
 import { QuoteBlockComponent } from "types/components/QuoteBlock";
+import { InfoBoxComponent } from "types/components/InfoBox";
 
 export type Component = (
   CardListComponent |
@@ -13,5 +14,6 @@ export type Component = (
   HeroImageComponent |
   HeroWithDescriptionComponent |
   ImageListComponent |
-  QuoteBlockComponent
+  QuoteBlockComponent |
+  InfoBoxComponent
 );

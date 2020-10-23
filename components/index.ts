@@ -8,3 +8,4 @@ export { HeroImage } from './HeroImage';
 export { HeroWithDescription } from './HeroWithDescription';
 export { ImageList } from './ImageList';
 export { QuoteBlock } from './QuoteBlock';
+export { InfoBox } from './InfoBox';

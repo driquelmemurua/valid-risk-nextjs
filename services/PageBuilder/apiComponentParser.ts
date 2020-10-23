@@ -5,6 +5,7 @@ import { ApiContactFormDisc } from "types/api/ContactForm";
 import { ApiHeroImageDisc } from "types/api/HeroImage";
 import { ApiHeroWithDescriptionDisc } from "types/api/HeroWithDescription";
 import { ApiImageListDisc } from "types/api/ImageList";
+import { ApiInfoBoxDisc } from "types/api/InfoBox";
 import { ApiQuoteBlockDisc } from "types/api/QuoteBlock";
 import { Component } from "types/components";
 import { CardListComponent } from "types/components/CardList";
@@ -13,6 +14,7 @@ import { ContactFormComponent } from "types/components/ContactForm";
 import { HeroImageComponent } from "types/components/HeroImage";
 import { HeroWithDescriptionComponent } from "types/components/HeroWithDescription";
 import { ImageListComponent } from "types/components/ImageList";
+import { InfoBoxComponent } from "types/components/InfoBox";
 import { QuoteBlockComponent } from "types/components/QuoteBlock";
 
 
@@ -185,6 +187,28 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
           text: component.Text,
           color: component.Color,
           url: component.QuoteLink,
+        }
+      )
+    case ApiInfoBoxDisc:
+      return new InfoBoxComponent(
+        component.id.toString(),
+        {
+          margin: component.Margin,
+          title: {
+            text: component.Title.Title,
+            color: component.Title.Color,
+            icon: component.Title.Icon
+          },
+          content: {
+            text: component.Content.Text,
+            color: component.Content.Color
+          },
+          link: component.Link ? {
+            text: component.Link.Text,
+            uri: component.Link.Link,
+            color: component.Link.Color,
+            position: component.Link.Position
+          } : null
         }
       )
     default:

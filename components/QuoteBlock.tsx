@@ -31,17 +31,19 @@ export function QuoteBlock({ margin, text, color, url }: QuoteBlockProps) {
       bgColor={ bgColor }
     >
       <Quote />
-      <Paragraph>
-        { start }
-        <Highlight
-          href={ url }
-          color={ highlightColor }
-        >
+      <ContainerBox>
+        <Paragraph>
+          { start }
           { quote }
-          <ExtLink />
-        </Highlight>
-        { end }
-      </Paragraph>
+          { end }
+      
+        </Paragraph>
+        <Link
+            color={ COLORS.firstComplementary.default }>
+            {'See more'}
+          </Link>
+      </ContainerBox>
+      
     </Container>
   )
 }
@@ -56,8 +58,9 @@ const Container = styled.section <ContainerType>`
   padding-block-end: 2em;
   padding-inline-start: 1em;
   padding-inline-end: 1em;
-  background-color: ${ ({ bgColor }) => bgColor };
   color: ${ COLORS.white };
+  background: rgb(15,19,19);
+background: linear-gradient(90deg, rgba(15,19,19,1) 0%, rgba(67,85,87,1) 65%, rgba(75,95,97,1) 100%);
   font-weight: bold;
 
   & > *:nth-child(1) {
@@ -67,26 +70,29 @@ const Container = styled.section <ContainerType>`
     grid-column: 3 / 4;
   }
 `;
+const ContainerBox = styled.section`
+  display: flex;
+  flex-direction: column;
 
-const Paragraph = styled.p `
-  white-space: pre-line;
 `;
-
-type HighlightProps = {
-  color: string
-}
-const Highlight = styled.a `
-  background-color: ${ ({ color }) => color };
-`;
-
 const Quote = styled(FormatQuoteIcon) `
   color: ${ COLORS.white };
   font-size: 50px !important;
   margin-block-start: -14px;
 `;
 
-const ExtLink = styled(LaunchIcon) `
-  color: ${ COLORS.white };
-  font-size: 18px !important;
-  margin-block-end: -4px;
+const Paragraph = styled.p `
+  white-space: pre-line;
+
+
 `;
+
+
+const Link = styled.div`
+  background-color: ${ ({ color }) => color };
+  padding: 0.75em 2.125em;
+  color: ${ COLORS.white };
+  display: inline-flex;
+  margin: 10px 20px 10px 20px;
+`;
+

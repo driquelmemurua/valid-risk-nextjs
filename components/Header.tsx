@@ -151,7 +151,6 @@ type LogoProps = {
 function Logo({ image: { src, alt }, title }: LogoProps) {
   const { y: windowScroll } = useWindowScroll();
   const size = !Math.trunc(windowScroll / DISTANCE_TO_SHRINK) ? LOGO_SIZE : SHRUNK_LOGO_SIZE;
-  console.log(windowScroll)
 
   return (
     <Link

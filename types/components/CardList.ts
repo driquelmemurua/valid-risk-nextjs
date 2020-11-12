@@ -7,6 +7,7 @@ export type CardListProps = {
     color: 'Purple' | 'White'
   }[]
   margin: string
+  title: string
 }
 export const CardListDisc = 'CARD_LIST';
 export class CardListComponent {

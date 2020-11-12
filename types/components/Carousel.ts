@@ -2,6 +2,7 @@ export type CarouselProps = {
   margin: string
   views: {
     key: string
+    title: string
     background: {
       alt: string
       placeholder: string

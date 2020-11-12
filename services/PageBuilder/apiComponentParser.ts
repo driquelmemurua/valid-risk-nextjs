@@ -31,7 +31,8 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
             content: card.Content,
             color: card.Color
           })),
-          margin: component.Margin
+          margin: component.Margin,
+          title: component.Title
         }
       );
     case ApiCarouselDisc:
@@ -41,6 +42,7 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
           margin: component.Margin,
           views: component.Views.map(view => ({
             key: `carousel_view-${view.id.toString()}`,
+            title: view.Title,
             background: {
               alt: view.Background.alternativeText,
               placeholder: view.Background.formats.thumbnail.url,

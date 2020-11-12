@@ -7,6 +7,7 @@ export type ApiCarouselComponent = {
   Margin: string
   Views: {
     id: number
+    Title: string
     Heading: string
     Button: {
       Text: string

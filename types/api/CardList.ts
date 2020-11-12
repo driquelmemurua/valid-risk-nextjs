@@ -10,4 +10,5 @@ export type ApiCardListComponent = {
     Content: string
     Color: 'White' | 'Purple'
   }[]
+  Title: string
 }

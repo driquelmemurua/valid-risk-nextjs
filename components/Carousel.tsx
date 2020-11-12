@@ -27,7 +27,8 @@ export function Carousel({ margin, views }: CarouselProps) {
 
   const nodes = views.map(({ 
     key, 
-    heading, 
+    heading,
+    title,
     button: {
       color: colorName,
       text,
@@ -39,18 +40,18 @@ export function Carousel({ margin, views }: CarouselProps) {
       placeholder
     }
   }) => {
-    let highlightColor = '#000';
+    let underlineColor = '#000';
     let buttonColor = '#000';
     if( colorName === 'Green' ) {
-      highlightColor = COLORS.firstComplementary.light;
+      underlineColor = COLORS.firstComplementary.default;
       buttonColor    = COLORS.firstComplementary.default;
     }
     else if( colorName === 'Purple' ) {
-      highlightColor = COLORS.primary.light;
+      underlineColor = '#7901B4';
       buttonColor    = COLORS.primary.default;
     }
     else if( colorName === 'Yellow' ) {
-      highlightColor = COLORS.secondComplementary.light;
+      underlineColor = COLORS.secondComplementary.default;
       buttonColor    = COLORS.secondComplementary.default;
     }
     return (
@@ -62,9 +63,13 @@ export function Carousel({ margin, views }: CarouselProps) {
           srcs={ srcs }
           placeholder={ placeholder }
         >
-          <Heading
-            color={ highlightColor }
-          >
+          <Title>
+            { title }
+            <Underline 
+              color={ underlineColor }
+            />
+          </Title>
+          <Heading>
             { heading }
           </Heading>
           <Button
@@ -111,18 +116,21 @@ export function Carousel({ margin, views }: CarouselProps) {
 }
 
 const Content = styled(BackgroundImage) `
-  padding-inline-start: 4em;
-  padding-inline-end:   4em;
+  padding-inline-start: 6em;
+  padding-inline-end:   6em;
   padding-block-start:  6em;
   padding-block-end:  7em;
   background-size: cover;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   @media (max-width: ${ MEDIA_QUERIES.phone } ) {
     padding-inline-start: 1em;
     padding-inline-end: 1em;
     padding-block-start: 1em;
     padding-block-end: 4em;
   }
-`
+`;
 
 const CarouselContainer = styled.section `
   @media (max-width: ${ MEDIA_QUERIES.phone } ) {
@@ -136,7 +144,6 @@ const CarouselContainer = styled.section `
 `;
 const CarouselItems = styled.div `
   display: flex;
-  align-items: center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   &::-webkit-scrollbar {
@@ -181,12 +188,28 @@ const Item = styled.div`
   }
 `;
 
-function Heading({ children, color }) {
+const Title = styled.h2`
+  width: max-content;
+  font-size: 72px;
+  font-family: Segoe UI;
+  color: white;
+  font-weight: 300;
+  margin-block-end: 60px; 
+`;
+type UnderlineProps = {
+  color: string
+}
+const Underline = styled.div `
+  width: 60%;
+  height: 1px;
+  border-block-end: 4px solid ${ ({ color }) => color };
+`;
+
+function Heading({ children }) {
   const nodes = children.split('\n').map((text, index) => (
     <HeadingLine
       key={text || index.toString()}
       isText={text ? true : false}
-      color={ color }
     >
       { text || '\n' }
     </HeadingLine>
@@ -197,27 +220,27 @@ function Heading({ children, color }) {
     </HeadingContainer>
   )
 }
-const HeadingContainer = styled.h2 `
-  font-size: 2em;
+const HeadingContainer = styled.div `
+  font-size: 40px;
   min-height: 360px;
   margin: 0;
   color: ${ COLORS.white };
 `;
 type HeadingLineProps = {
   isText: boolean
-  color: string
 }
 const HeadingLine = styled.div<HeadingLineProps> `
   display: inline-block;
   white-space: pre-line;
-  background-color: ${ ({ isText, color }) => isText ? `${ color }7f` : 'transparent'};
+  font-family: Segoe UI;
+  font-weight: 300;
   min-height:       ${ ({ isText })        => isText ? '0'            : '1em'};
   width:            ${ ({ isText })        => isText ? 'auto'         : '100%'};
-  padding:          ${ ({ isText })        => isText ? '0.25em'       : '0'};
 `;
 
 const ArrowStyle = css`
   color: #F8F8F8;
+  z-index: 1;
   font-size: 4em !important;
   position: absolute;
   top: 50%;
@@ -242,6 +265,9 @@ type ButtonProps = {
   color: string
 }
 const Button = styled.div<ButtonProps> `
+  width: max-content;
+  position: relative;
+  bottom: 0;
   color: #F8F8F8;
   background-color: ${ ({ color }) => color };
   display: inline-block;

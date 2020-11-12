@@ -24,7 +24,7 @@ function getColors(color: 'White' | 'Purple') {
   }
 }
 
-export function CardList({ cards , margin }: CardListProps) {
+export function CardList({ cards, title, margin }: CardListProps) {
   const cardNodes = cards.map(({ key, title, icon, content, color }) => (
     <Card
       key={ key }
@@ -47,27 +47,45 @@ export function CardList({ cards , margin }: CardListProps) {
   return (
     <Container
       style={{ margin }}
-      items={ cards.length }
     >
-      { cardNodes }
+      <ComponentTitle>
+        { title }
+      </ComponentTitle>
+      <CardsContainer
+        items={ cards.length }
+      >
+        { cardNodes }
+      </CardsContainer>
     </Container>
   )
 }
 
-type ContainerProps = {
+const CARD_WIDTH = '380px';
+
+const ComponentTitle = styled.h2 `
+  font-size: 60px;
+  font-family: Roboto;
+  font-weight: 400;
+  color: #96859E;
+  text-align: center;
+  margin-block-end: 32px;
+`;
+const Container = styled.section `
+`;
+type CardsContainerProps = {
   items: number
 }
-const Container = styled.section<ContainerProps> `
+const CardsContainer = styled.div<CardsContainerProps> `
   display: flex;
   box-sizing: content-box;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: calc(${ ({ items }) => items }*(256px + 4em));
-  gap: 2em 4em;
+  max-width: calc(${ ({ items }) => items }*(${ CARD_WIDTH } + 4em));
+  margin: auto;
+  gap: 2em 32px;
   padding-inline-start: 2em;
   padding-inline-end: 2em;
 `;
-
 type CardProps = {
   fontColor: string
   bgColor: string
@@ -77,13 +95,14 @@ const CardStyle = css<CardProps> `
   color: ${ ({ fontColor }) => fontColor };
   background-color: ${ ({ bgColor }) => bgColor };
   padding-block-start: 1em;
-  width: 256px;
+  width: ${ CARD_WIDTH };
 `;
 const Card = styled.div `
   ${CardStyle}
   -webkit-box-shadow: 0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
   -moz-box-shadow:    0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
   box-shadow:         0px 3px 12px 3px ${ ({ shadowColor }) => shadowColor };
+  border: 4px solid #725A78;
 `;
 
 const IconContainer = styled.div `
@@ -92,14 +111,20 @@ const IconContainer = styled.div `
 `;
 const CustomIcon = styled(Icon) `
   font-size: 48px !important;
+  color: #242B3D !important;
 `;
 
 const Title = styled.h2 `
-  font-size: 1.5em;
+  font-family: Montserrat;
+  background-color: #7901B4;
+  color: white;
+  font-size: 24px;
   padding-inline-start: 0.25em;
   padding-inline-end: 0.25em;
-  font-weight: bold;
   text-align: center;
+  font-weight: normal;
+  padding-block-start: 16px;
+  padding-block-end: 16px;
 `;
 
 const Content = styled.p `
@@ -107,4 +132,5 @@ const Content = styled.p `
   white-space: pre-line;
   padding: 1em;
   font-family: BentonSans;
+  color: #707070;
 `;

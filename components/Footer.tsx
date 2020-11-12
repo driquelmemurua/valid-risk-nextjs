@@ -1,8 +1,5 @@
 import { COLORS, MEDIA_QUERIES } from 'consts';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import MailIcon from '@material-ui/icons/Mail';
-import PhoneIcon from '@material-ui/icons/Phone';
 import styled from 'styled-components';
 import { FooterProps } from 'types/components/Footer';
 
@@ -10,7 +7,6 @@ export function Footer({
   supportContact,
   demoRequest,
   addresses,
-  mail,
   phone,
   products,
   services,

@@ -29,7 +29,7 @@ export function Header({ navigation, slug, logo }: HeaderProps) {
     <Container>
       <Logo { ...logo } />
       <Navigation
-        display={ displayNav }
+        displayNav={ displayNav }
       >
         <NavList>
           { navItems }
@@ -97,7 +97,7 @@ const Container = styled.header `
 `;
 
 type NavigationProps = {
-  display: boolean
+  displayNav: boolean
 }
 const Navigation = styled.nav<NavigationProps> `
   @media (max-width: ${ MEDIA_QUERIES.phone }) {
@@ -108,7 +108,7 @@ const Navigation = styled.nav<NavigationProps> `
     padding-block-end: 1em;
     padding-inline-start: 1em;
     transition: transform 0.75s ease-in-out;
-    transform: ${ ({ display }) => display ? 'translate(0, 100%)' : 'translate(100%, 100%)' };
+    transform: ${ ({ displayNav }) => displayNav ? 'translate(0, 100%)' : 'translate(100%, 100%)' };
   }
 `;
 

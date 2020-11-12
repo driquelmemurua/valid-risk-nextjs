@@ -81,15 +81,25 @@ export class PageBuilder {
 
   static async footerProps(): Promise<FooterProps> {
     const { ContactInfo } = await ApiService.getThemeSettings();
-
     return {
-      supportLogin: (process.env.API_URI || 'http://localhost:1337') + '/admin',
+      supportContact: ContactInfo.SupportContact,
       demoRequest: 'https://www.google.com',
       mail: ContactInfo.Email,
       phone: ContactInfo.Phone,
       addresses: ContactInfo.Locations.map(location => ({
         key: location.id.toString(),
         location: location.Address
+      })),
+      youtube: ContactInfo.SocialNetwork.Youtube,
+      products: ContactInfo.Products.map((product) => ({
+        key: `footer_product-${product.id}`,
+        name: product.Name,
+        url: product.Url
+      })),
+      services: ContactInfo.Services.map((service) => ({
+        key: `footer_service-${service.id}`,
+        name: service.Name,
+        url: service.Url
       }))
     }
   }

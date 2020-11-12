@@ -22,9 +22,23 @@ export type ThemeSettings = {
   ContactInfo: {
     Email: string
     Phone: string
+    SupportContact: string
     Locations: {
       id: number
       Address: string
+    }[]
+    SocialNetwork: {
+      Youtube: string
+    }
+    Products: {
+      id: number
+      Name: string
+      Url: string
+    }[]
+    Services: {
+      id: number
+      Name: string
+      Url: string
     }[]
   }
 }

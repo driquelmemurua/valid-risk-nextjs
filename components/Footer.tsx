@@ -7,11 +7,14 @@ import styled from 'styled-components';
 import { FooterProps } from 'types/components/Footer';
 
 export function Footer({
-  supportLogin,
+  supportContact,
   demoRequest,
   addresses,
   mail,
-  phone
+  phone,
+  products,
+  services,
+  youtube
 }: FooterProps) {
 
   const addressNodes = addresses.map(({ location, key }) => (
@@ -23,7 +26,7 @@ export function Footer({
       >
         <LocationOnIcon
           style={{
-            color: COLORS.white,
+            color: COLORS.footer.bullet,
             marginInlineEnd: '0.25em',
           }}
         />
@@ -33,49 +36,52 @@ export function Footer({
       </Item>
     </dd>
   ));
+  const productNodes = products.map(({ name, url, key }) => (
+    <dd 
+      key={ key }
+    >
+      <Item
+        href={ url }
+        bullet
+      >
+        <div>
+          { name }
+        </div>
+      </Item>
+    </dd>
+  ));
+  const serviceNodes = services.map(({ name, url, key }) => (
+    <dd 
+      key={ key }
+    >
+      <Item
+        href={ url }
+        bullet
+      >
+        <div>
+          { name }
+        </div>
+      </Item>
+    </dd>
+  ));
 
   return (
     <Container>
       <List>
         <dt>
-          Valid Risk
+          Products
         </dt>
-        <dd>
-          <Item 
-            href={ supportLogin }
-          >
-            <FiberManualRecordIcon
-              style={{
-                color: COLORS.white,
-                fontSize: 12,
-                marginInlineEnd: '1em',
-              }}
-            />
-            <div>
-              Support login
-            </div>
-          </Item>
-        </dd>
-        <dd>
-          <Item 
-            href={ demoRequest } 
-          >
-            <FiberManualRecordIcon 
-              style={{
-                color: COLORS.white,
-                fontSize: 12,
-                marginInlineEnd: '1em',
-              }}
-            />
-            <div>
-              Request a demo
-            </div>
-          </Item>
-        </dd>
+        { productNodes }
       </List>
       <List>
         <dt>
-          Our Location
+          Services
+        </dt>
+        { serviceNodes }
+      </List>
+      <List>
+        <dt>
+          Offices
         </dt>
         { addressNodes }
       </List>
@@ -85,33 +91,41 @@ export function Footer({
         </dt>
         <dd>
           <Item
-            href={ `mailto:${ mail }` }
+            href={ demoRequest }
+            bullet
           >
-            <MailIcon
-              style={{
-                color: COLORS.white,
-                fontSize: 22,
-                marginInlineEnd: '0.5em',
-              }}
-            />
             <div>
-              { mail }
+              Require a demo
+            </div>
+          </Item>
+        </dd>
+        <dd>
+          <Item
+            href={ supportContact }
+            bullet
+          >
+            <div>
+              Support contact
             </div>
           </Item>
         </dd>
         <dd>
           <Item
             href={ `tel:${ phone }` }
+            bullet
           >
-            <PhoneIcon
-              style={{
-                color: COLORS.white,
-                fontSize: 22,
-                marginInlineEnd: '0.5em',
-              }}
-            />
             <div>
-              { phone }
+              Call us
+            </div>
+          </Item>
+        </dd>
+        <dd>
+          <Item
+            href={ youtube }
+            bullet
+          >
+            <div>
+              Youtube
             </div>
           </Item>
         </dd>
@@ -122,12 +136,12 @@ export function Footer({
 
 const Container = styled.footer `
   display: grid;
-  grid-template-columns: calc(50vw - 40em) 1fr 1fr 1fr calc(50vw - 40em);
-  background-color: ${ COLORS.black };
+  grid-template-columns: calc(50vw - 40em) 1fr 1fr 1fr 1fr calc(50vw - 40em);
+  background-color: ${ COLORS.footer.background };
   padding-inline-start: 3em;
   padding-inline-end: 3em;
-  padding-block-start: 1.65em;
-  padding-block-end: 2.5em;
+  padding-block-start: 24px;
+  padding-block-end: 34px;
   @media (max-width: ${ MEDIA_QUERIES.phone }) {
     padding-inline-start: 2em;
     padding-inline-end: 2em;
@@ -153,27 +167,51 @@ const Container = styled.footer `
       grid-column: 2 / 4;
     }
   }
+  & > *:nth-child(4) {
+    grid-column: 5;
+    @media (max-width: ${ MEDIA_QUERIES.phone }) {
+      grid-column: 2 / 4;
+    }
+  }
 `;
 
 const List = styled.dl `
   margin: 0;
 
   & > * {
-    color: ${ COLORS.white };
+    color: ${ COLORS.footer.item };
     margin: 0;
-    margin-block-end: 0.86em;
+    margin-block-end: 30px;
   }
   & > *:first-child {
-    font-weight: 700;
-    margin-block-end: 1.25em;
+    color: #FFFFFF;
+    font-family: Roboto;
+    text-decoration: underline;
+    font-size: 24px;
+    margin-block-end: 44px;
   }
   & > *:last-child {
     margin-block-end: 0;
   }
 `;
 
-const Item = styled.a `
+type ItemProps = {
+  bullet?: boolean
+}
+const Item = styled.a<ItemProps> `
   display: flex;
   align-items: center;
   width: fit-content;
+  font-family: Roboto;
+
+  ${ ({ bullet }) => {
+    if(bullet) {
+      return `
+        & > div {
+          border-inline-start: 3px solid ${ COLORS.footer.bullet };
+          padding-inline-start: 20px;
+        }
+      `;
+    }
+  }}
 `;

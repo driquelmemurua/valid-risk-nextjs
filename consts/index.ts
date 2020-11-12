@@ -17,6 +17,11 @@ export const COLORS = {
     dark: '#E6AD7C',
     light: '#FFAD17'
   },
+  footer: {
+    background: '#725A78',
+    item: '#C9C7FE',
+    bullet: '#FF8000'
+  }
 }
 
 export const SUPPORT_LOGIN = (process.env.API_URI || 'http://localhost:1337') + '/admin';

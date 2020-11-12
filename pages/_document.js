@@ -38,6 +38,10 @@ export default class MyDocument extends Document {
       >
         <Head>
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          <script 
+            src="https://kit.fontawesome.com/0a4d64d4ed.js" 
+            crossOrigin="anonymous" 
+          />
         </Head>
         <body>
           <Main />

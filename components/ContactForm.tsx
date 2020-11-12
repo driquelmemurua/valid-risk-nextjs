@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { ContactFormProps } from "types/components/ContactForm";
 import { COLORS } from 'consts';
 import SendIcon from '@material-ui/icons/Send';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 
 export function ContactForm({ margin, action }: ContactFormProps) {
   return (
@@ -10,6 +11,7 @@ export function ContactForm({ margin, action }: ContactFormProps) {
     >
       <Title>
         Contact Us
+        <ContactIcon />
       </Title>
       <Form
         id='contact-form'
@@ -61,22 +63,28 @@ const Container = styled.section`
   padding-block-end:    0.75em;
   padding-inline-start: 1em;
   padding-inline-end:   1em;
+  max-width: 550px;
+  background-color: #fff;
 `;
 
 const Title = styled.h2 `
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   color: ${ COLORS.primary.dark };
   margin-block-end: 1em;
+  display: flex;
+`;
+
+const ContactIcon = styled(ContactMailIcon) `
+  width: 32px;
+  color: ${ COLORS.primary.dark };
+  margin-inline-start: 12px;
 `;
 
 const Form = styled.form `
   display: grid;
   grid-gap: 1em 4em;
-  grid-template-columns: 1fr 1fr;
-  & > *:last-child {
-    grid-column: 1 / 3;
-  }
+  grid-template-columns: 1fr;
   margin-block-end: 1.75em;
 `;
 

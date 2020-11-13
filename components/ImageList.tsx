@@ -99,7 +99,7 @@ const Link = styled.a `
   font-family: Roboto;
   font-size: 32px;
   padding: 16px 64px;
-  display: inline-block;
+  display: block;
   float: right;
 `;
 

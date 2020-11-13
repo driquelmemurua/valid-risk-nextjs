@@ -139,7 +139,7 @@ const NavItem = styled.li<NavItemProps> `
 
 const LOGO_SIZE = 64;
 const SHRUNK_LOGO_SIZE = 32;
-const DISTANCE_TO_SHRINK = 380;
+const DISTANCE_TO_SHRINK = 600  ;
 
 type LogoProps = {
   image: {
@@ -194,7 +194,7 @@ type ImageContainerProps = {
 }
 const ImageContainer = styled.div<ImageContainerProps> `
   width: ${ ({ size }) => size }px;
-  transition: width 0.4s ease-in-out 0.05s;
+  transition: width 0.3s ease-in-out;
 `;
 const LogoImage = styled.img `
   width: 100%;

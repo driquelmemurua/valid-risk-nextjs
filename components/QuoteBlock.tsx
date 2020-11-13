@@ -6,64 +6,61 @@ import { COLORS } from 'consts';
 
 export function QuoteBlock({ margin, text, color, url }: QuoteBlockProps) {
   
-  let bgColor = '#fff';
-  let highlightColor = '#fff';
+  let linkColor = '#fff';
   if(color === 'Purple') {
-    bgColor = COLORS.primary.dark;
-    highlightColor = `${COLORS.primary.default}80`;
+    linkColor = '#7901B4';
   }
   else if(color === 'Green') {
-    bgColor = COLORS.firstComplementary.dark;
-    highlightColor = `${COLORS.firstComplementary.default}80`;
+    linkColor = COLORS.firstComplementary.default;
   }
   else if(color === 'Yellow') {
-    bgColor = COLORS.secondComplementary.dark;
-    highlightColor = `${COLORS.secondComplementary.default}80`;
+    linkColor = COLORS.secondComplementary.default;
   }
-
-  const start = text.slice(0, text.indexOf('“'));
-  const quote = text.slice(text.indexOf('“'), text.indexOf('”')+1);
-  const end =   text.slice(text.indexOf('”')+1);
 
   return (
     <Container
       style={{ margin }}
-      bgColor={ bgColor }
     >
-      <Quote />
+      <Grid>
+        <Quote />
         <Paragraph>
-          { start }
-          { quote }
-          { end }
+          { text }
         </Paragraph>
         <Link
-          color={ COLORS.firstComplementary.default }>
+          color={ linkColor }
+          href={ url }
+        >
           {'See more'}
         </Link>
+      </Grid>
     </Container>
   )
 }
 
-type ContainerType = {
-  bgColor: string
-}
-const Container = styled.section <ContainerType>`
-  display: flex;
-  justify-content: center;
+const Container = styled.section`
   padding-block-start: 2em;
   padding-block-end: 2em;
   padding-inline-start: 1em;
   padding-inline-end: 1em;
   color: ${ COLORS.white };
-  background: rgb(15,19,19);
-background: linear-gradient(90deg, rgba(15,19,19,1) 0%, rgba(67,85,87,1) 65%, rgba(75,95,97,1) 100%);
-  font-weight: bold;
+  background: linear-gradient(90deg, #16A2B8, #725A78B0);
+`;
+
+const Grid = styled.div `
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: min-content 1fr;
 
   & > *:nth-child(1) {
-    grid-column: 2 / 3;
+    grid-column: 1;
   }
   & > *:nth-child(2) {
-    grid-column: 3 / 4;
+    grid-column: 2;
+  }
+  & > *:nth-child(3) {
+    grid-row: 2;
+    grid-column: 2;
   }
 `;
 
@@ -74,17 +71,23 @@ const Quote = styled(FormatQuoteIcon) `
 `;
 
 const Paragraph = styled.p `
+  padding-inline-start: 1em;
   white-space: pre-line;
-
-
+  font-family: Segoe UI;
+  font-size: 32px;
+  font-weight: 300;
 `;
 
-
-const Link = styled.div`
+type LinkProps = {
+  color: string
+}
+const Link = styled.a<LinkProps>`
+  width: max-content;
+  margin-block-start: 52px;
   background-color: ${ ({ color }) => color };
-  padding: 0.75em 2.125em;
+  padding: 20px 56px;
   color: ${ COLORS.white };
   display: inline-flex;
-  margin: 10px 20px 10px 20px;
+  font-weight: 400;
+  font-size: 24px;
 `;
-

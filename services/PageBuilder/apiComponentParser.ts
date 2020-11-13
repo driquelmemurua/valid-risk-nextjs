@@ -6,6 +6,7 @@ import { ApiHeroImageDisc } from "types/api/HeroImage";
 import { ApiHeroWithDescriptionDisc } from "types/api/HeroWithDescription";
 import { ApiImageListDisc } from "types/api/ImageList";
 import { ApiInfoBoxDisc } from "types/api/InfoBox";
+import { ApiListWithDescriptionDisc } from "types/api/ListWithDescription";
 import { ApiQuoteBlockDisc } from "types/api/QuoteBlock";
 import { Component } from "types/components";
 import { CardListComponent } from "types/components/CardList";
@@ -15,6 +16,7 @@ import { HeroImageComponent } from "types/components/HeroImage";
 import { HeroWithDescriptionComponent } from "types/components/HeroWithDescription";
 import { ImageListComponent } from "types/components/ImageList";
 import { InfoBoxComponent } from "types/components/InfoBox";
+import { ListWithDescriptionComponent } from "types/components/ListWithDescription";
 import { QuoteBlockComponent } from "types/components/QuoteBlock";
 
 
@@ -212,6 +214,19 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
             color: component.Link.Color,
             position: component.Link.Position
           } : null
+        }
+      )
+    case ApiListWithDescriptionDisc:
+      return new ListWithDescriptionComponent(
+        component.id.toString(),
+        {
+          margin: component.Margin,
+          title: component.Title,
+          items: component.Item.map(({ id, Name, Description }) => ({
+            key: `list_with_description-${id.toString()}`,
+            name: Name,
+            description: Description
+          }))
         }
       )
     default:

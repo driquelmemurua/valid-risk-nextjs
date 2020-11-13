@@ -6,7 +6,8 @@ import {
   HeroWithDescription, 
   ImageList,
   InfoBox,
-  QuoteBlock
+  QuoteBlock,
+  ListWithDescription
 } from "components";
 import { Component } from "types/components";
 import { CardListDisc } from "types/components/CardList";
@@ -16,6 +17,7 @@ import { HeroImageDisc } from "types/components/HeroImage";
 import { HeroWithDescriptionDisc } from "types/components/HeroWithDescription";
 import { ImageListDisc } from "types/components/ImageList";
 import { InfoBoxDisc } from "types/components/InfoBox";
+import { ListWithDescriptionDisc } from "types/components/ListWithDescription";
 import { QuoteBlockDisc } from "types/components/QuoteBlock";
 
 export function useComponentParser(components: Component[]): JSX.Element[] {
@@ -73,6 +75,13 @@ export function useComponentParser(components: Component[]): JSX.Element[] {
       case InfoBoxDisc:
         return (
           <InfoBox 
+            key={component.key}
+            { ...component.props } 
+          />
+        )
+      case ListWithDescriptionDisc:
+        return (
+          <ListWithDescription 
             key={component.key}
             { ...component.props } 
           />

@@ -6,6 +6,7 @@ import { ApiHeroWithDescriptionComponent } from "types/api/HeroWithDescription";
 import { ApiImageListComponent } from "types/api/ImageList";
 import { ApiQuoteBlockComponent } from "types/api/QuoteBlock";
 import { ApiInfoBoxComponent } from 'types/api/InfoBox';
+import { ApiListWithDescriptionComponent } from "types/api/ListWithDescription";
 
 export type ApiComponent = (
   ApiCardListComponent |
@@ -15,7 +16,8 @@ export type ApiComponent = (
   ApiHeroWithDescriptionComponent |
   ApiImageListComponent |
   ApiQuoteBlockComponent |
-  ApiInfoBoxComponent
+  ApiInfoBoxComponent |
+  ApiListWithDescriptionComponent
 );
 export type ApiPage = {
   id: number

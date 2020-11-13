@@ -6,12 +6,13 @@ export type ApiImageListComponent = {
   __component: typeof ApiImageListDisc
   Margin: string
   Title: string
-  Position: 'Left' | 'Right'
-  Color: 'Purple' | 'Yellow' | 'Green'
-  TitleDrop?: string
   Item: {
     id: number
     Text: string
   }[]
   Image: ApiImage
+  Link: {
+    Text: string
+    Url: string
+  }
 }

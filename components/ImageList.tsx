@@ -3,23 +3,8 @@ import styled from 'styled-components';
 import { ImageListProps } from "types/components/ImageList";
 import { COLORS } from 'consts';
 
-export function ImageList({ margin, title, position, color, items, image: { alt, placeholder, srcs } }: ImageListProps) {
+export function ImageList({ margin, title, items, link: { text, url }, image: { alt, placeholder, srcs } }: ImageListProps) {
   const src = useSrcset({ placeholder, srcs });
-  
-  let titleColor = '#fff';
-  let blockColor = '#fff';
-  if(color === 'Green'){
-    titleColor = COLORS.firstComplementary.light;
-    blockColor = COLORS.firstComplementary.default;
-  }
-  else if(color === 'Purple'){
-    titleColor = COLORS.primary.light;
-    blockColor = COLORS.primary.default;
-  }
-  else if(color === 'Yellow'){
-    titleColor = COLORS.secondComplementary.dark;
-    blockColor = COLORS.secondComplementary.default;
-  }
 
   const itemNodes = items.map(({ key, text }) => (
     <Item
@@ -33,39 +18,33 @@ export function ImageList({ margin, title, position, color, items, image: { alt,
     <Container
       title={ alt }
       style={{ margin }}
-      position={ position }
     >
       <Grid>
         <Image 
           src={ src }
           alt={ alt }
         />
-        <Block
-          position={ position }
-        >
-          <Title
-            color={ titleColor }
-          >
+        <Block>
+          <Title>
             { title }
           </Title>
-          <ListBlock
-            color={ blockColor }
-          >
+          <ListBlock>
             <List>
               { itemNodes }
             </List>
           </ListBlock>
+          <Link
+            href={ url }
+          >
+            { text }
+          </Link>
         </Block>
-        
       </Grid>
     </Container>
   )
 }
 
-type ContainerProps = {
-  position: 'Left' | 'Right'
-}
-const Container = styled.section<ContainerProps>`
+const Container = styled.section`
 `;
 const Image = styled.img`
   width: 100%;
@@ -88,10 +67,7 @@ const Grid = styled.div`
   }
 `;
 
-type BlockProps = {
-  position: 'Left' | 'Right'
-}
-const Block = styled.div<BlockProps> `
+const Block = styled.div `
   height: min-content;
   color: ${ COLORS.white };
   background-color: #E9E5EB;
@@ -102,10 +78,7 @@ const Block = styled.div<BlockProps> `
   border-radius: 1em;
 `;
 
-type TitleProps = {
-  color: string
-}
-const Title = styled.h2<TitleProps> `
+const Title = styled.h2 `
   font-size: 60px;
   font-weight: 400;
   color: #4D2DD3;
@@ -113,22 +86,21 @@ const Title = styled.h2<TitleProps> `
   margin-block-end: 72px;
 `;
 
-type ListBlockProps = {
-  color: string
-}
-const ListBlock = styled.div<ListBlockProps> `
+const ListBlock = styled.div `
 `;
-
-const TitleDrop = styled.h3 `
-  font-size: 18px;
-  font-weight: 400;
-  width: 80%;
-  font-family: BentonSans;`
-;
 
 const List = styled.ul `
   border-inline-start: 5px solid #33B7F1;
   padding-inline-start: 30px;
+`;
+
+const Link = styled.a `
+  background-color: #F2713A;
+  font-family: Roboto;
+  font-size: 32px;
+  padding: 16px 64px;
+  display: inline-block;
+  float: right;
 `;
 
 const Item = styled.li `

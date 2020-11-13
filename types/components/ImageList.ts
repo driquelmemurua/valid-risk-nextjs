@@ -1,8 +1,9 @@
 export type ImageListProps = {
   title: string
-  titleDrop?: string
-  position: 'Left' | 'Right'
-  color: 'Green' | 'Purple' | 'Yellow'
+  link: {
+    text: string
+    url: string
+  }
   margin: string
   items: {
     key: string

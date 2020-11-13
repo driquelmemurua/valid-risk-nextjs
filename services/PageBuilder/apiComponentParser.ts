@@ -150,9 +150,10 @@ export function apiComponentParser(component: ApiComponent, idToSlugDictionary: 
         {
           margin: component.Margin,
           title: component.Title,
-          titleDrop: component.TitleDrop,
-          position: component.Position,
-          color: component.Color,
+          link: {
+            text: component.Link.Text,
+            url: component.Link.Url,
+          },
           items: component.Item.map(item => ({
             key: `image_list_item-${item.id.toString()}`,
             text: item.Text

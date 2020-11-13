@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ImageListProps } from "types/components/ImageList";
 import { COLORS } from 'consts';
 
-export function ImageList({ margin, title, titleDrop, position, color, items, image: { alt, placeholder, srcs } }: ImageListProps) {
+export function ImageList({ margin, title, position, color, items, image: { alt, placeholder, srcs } }: ImageListProps) {
   const src = useSrcset({ placeholder, srcs });
   
   let titleColor = '#fff';
@@ -33,101 +33,109 @@ export function ImageList({ margin, title, titleDrop, position, color, items, im
     <Container
       title={ alt }
       style={{ margin }}
-      src={ src }
       position={ position }
     >
-      <Block
-        position={ position }
-      >
-        <Title
-          color={ titleColor }
+      <Grid>
+        <Image 
+          src={ src }
+          alt={ alt }
+        />
+        <Block
+          position={ position }
         >
-          { title }
-        </Title>
-        <ListBlock
-          color={ blockColor }
-        >
-          {
-            titleDrop &&
-            <TitleDrop>
-              { titleDrop }
-            </TitleDrop>
-          }
-          <List>
-            { itemNodes }
-          </List>
-        </ListBlock>
-      </Block>
+          <Title
+            color={ titleColor }
+          >
+            { title }
+          </Title>
+          <ListBlock
+            color={ blockColor }
+          >
+            <List>
+              { itemNodes }
+            </List>
+          </ListBlock>
+        </Block>
+        
+      </Grid>
     </Container>
   )
 }
 
 type ContainerProps = {
-  src: string
   position: 'Left' | 'Right'
 }
 const Container = styled.section<ContainerProps>`
-  background-image: url(${ ({ src }) => src });
-  background-size: cover;
-  height: 640px;
-  display: flex;
-  align-items: center;
-  justify-content: ${ ({ position }) => position === 'Right' ? 'flex-end' : 'flex-start' };
+`;
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+`;
+const Grid = styled.div`
+  max-width: 1280px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 4fr 3fr 3fr;
+  grid-template-rows: 0.45fr 0.55fr;
+
+  *:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 2;
+ }
+  *:nth-child(2) {
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+  }
 `;
 
 type BlockProps = {
   position: 'Left' | 'Right'
 }
 const Block = styled.div<BlockProps> `
+  height: min-content;
   color: ${ COLORS.white };
-  display: grid;
-  grid-template-columns: ${ ({ position }) => position === 'Right' ? '2em 5fr 1fr' : '1fr 5fr 2em' };
-  grid-template-rows: 3.5em 1.25em 1fr;
-
-  & > *:nth-child(1) {
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-    z-index: 2;
-  }
-  & > *:nth-child(2) {
-    grid-column: 1 / 4;
-    grid-row: 2 / 4;
-  }
+  background-color: #E9E5EB;
+  padding-block-start: 32px;
+  padding-block-end: 32px;
+  padding-inline-start: 64px;
+  padding-inline-end: 32px;
+  border-radius: 1em;
 `;
 
 type TitleProps = {
   color: string
 }
 const Title = styled.h2<TitleProps> `
-  font-size: 24px;
-  background-color: ${ ({ color }) => color };
-  padding: 24px;
+  font-size: 60px;
+  font-weight: 400;
+  color: #4D2DD3;
+  font-family: Ubuntu;
+  margin-block-end: 72px;
 `;
 
 type ListBlockProps = {
   color: string
 }
 const ListBlock = styled.div<ListBlockProps> `
-  background-color: ${ ({ color }) => color };
-  padding-block-start: 2em;
-  padding-block-end: 1em;
 `;
 
 const TitleDrop = styled.h3 `
   font-size: 18px;
   font-weight: 400;
-  margin-block-end: 2em;
-  padding-inline-start: 2.5em;
   width: 80%;
-  font-family: BentonSans;
-`;
+  font-family: BentonSans;`
+;
 
 const List = styled.ul `
-  padding-inline-start: 4em;
-  padding-inline-end: 1em;
+  border-inline-start: 5px solid #33B7F1;
+  padding-inline-start: 30px;
 `;
 
 const Item = styled.li `
+  list-style: none;
   font-size: 18px;
-  font-family: BentonSans;
+  font-family: Roboto;
+  color: #F2713A;
+  font-size: 32px;
+  line-height: 1.5em;
 `;
